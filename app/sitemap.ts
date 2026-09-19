@@ -1,0 +1,2 @@
+import type {MetadataRoute} from 'next';import {products,articles} from '@/lib/content';import {siteUrl} from '@/lib/seo';
+export default function sitemap():MetadataRoute.Sitemap{return ['','/products','/solutions','/projects','/about','/contact','/quote','/resources','/privacy','/terms',...products.map(p=>`/products/${p.slug}`),...articles.map(a=>`/resources/${a.slug}`)].map(path=>({url:siteUrl+path,changeFrequency:'monthly' as const,priority:path===''?1:path.startsWith('/products')?.8:.5}))}

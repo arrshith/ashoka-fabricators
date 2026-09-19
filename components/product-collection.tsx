@@ -1,0 +1,3 @@
+'use client';
+import {useState} from 'react';import {products} from '@/lib/content';import {ProductCard} from './shared';
+export function ProductCollection(){const [filter,setFilter]=useState('All');return <><div className="filters" role="group" aria-label="Filter product family">{['All','Rolling shutters','Gates','Automation','Fabrication'].map(x=><button key={x} className={`filter ${filter===x?'active':''}`} aria-pressed={filter===x} onClick={()=>setFilter(x)}>{x}</button>)}</div><div className="product-grid" aria-live="polite">{products.filter(p=>filter==='All'||p.family===filter).map(p=><ProductCard key={p.slug} product={p}/>)}</div></>}
