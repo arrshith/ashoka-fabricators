@@ -101,6 +101,29 @@ Images are `loading="lazy"` except none above the fold (the hero is vector).
 The display and mono faces are preloaded; all five faces are Latin-subset
 woff2, 115 KB total. Animation is transform and opacity only.
 
+## Hero fixes (20 September, post-review)
+
+Reported as "visually buggy while scrolling". Three distinct causes, all fixed:
+
+1. **The elevation was being cropped into stray lines.** `preserveAspectRatio`
+   was `slice`, so at 1920x740 the 1000x620 viewBox scaled 1.92x to 1920x1190
+   and lost 225px top and bottom — taking the barrel, both guide tops and the
+   width dimension with it. What survived was four disconnected verticals and a
+   red stripe. Now `meet`, so the whole drawing always fits.
+2. **The drawing sat under the headline.** Even fitted, the copy and its scrim
+   covered its left half, so it still read as fragments. Above 1100px the
+   drawing now takes the right of the stage and the headline keeps the left;
+   below that it stays centred at 60% opacity as texture. Strokes are pitched
+   down from the shared `.dwg` palette, and a two-axis scrim keeps the
+   headline legible over whatever has been uncovered.
+3. **The curtain's lower edge looked like a clipping error.** Added a bottom
+   rail that travels and coils with the slats, so the curtain reads as ending
+   there.
+
+Also: the `02 / THE PROBLEM` chapter number straddled the hero/paper seam,
+putting a paper-coloured chip on the dark hero. The first chapter after the
+hero is now dropped clear of it.
+
 ## Known, accepted
 
 - **Streaming SSR heading order.** The served HTML places page content in a

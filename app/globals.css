@@ -163,6 +163,12 @@ h2.display {
   .wrap { padding-inline: max(var(--gutter), calc((100vw - 1560px) / 2)); }
 }
 
+/* A chapter rule sits on the section's top edge with its number straddling
+   it. Straight after the hero that edge is the dark/paper boundary, so the
+   number's paper-coloured backing lands on the hero. Drop the first chapter
+   clear of the seam. */
+.hero + .wrap { padding-top: clamp(26px, 3.5vw, 58px); }
+
 /* A numbered section, with the drafting margin down the left edge. */
 .chapter { position: relative; padding-block: clamp(64px, 9vw, 132px); }
 .chapter--tight { padding-block: clamp(48px, 6vw, 84px); }
@@ -364,8 +370,45 @@ h2.display {
   background-size: 64px 64px;
 }
 
-/* The dimensioned elevation sitting behind the curtain. */
-.hero__elev { position: absolute; inset: 0; width: 100%; height: 100%; }
+/* The dimensioned elevation sitting behind the curtain.
+   Two things keep it legible:
+   1. It is fitted (`meet`), never cropped. At a wide stage the previous
+      `slice` crop cut the barrel and both guide tops off the top and the
+      width dimension off the bottom, leaving four disconnected vertical
+      lines that read as a rendering fault rather than as a drawing.
+   2. On a wide stage it takes the right half only. Sharing the full width
+      with the headline meant the copy and its scrim covered half the
+      drawing, which left stray lines again. */
+.hero__elev {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  padding: 5vh 0 9vh;
+}
+@media (min-width: 1100px) {
+  .hero__elev { left: 46%; right: 3%; width: auto; padding-block: 7vh; }
+}
+/* Below that there is no room to split the stage, so the drawing sits behind
+   the headline and steps back to being texture rather than a figure. */
+@media (max-width: 1099px) {
+  .hero__elev { opacity: 0.6; }
+}
+
+/* Pitched down from the shared .dwg palette — this one is a backdrop. */
+.hero__elev .obj { stroke: #8a9497; }
+.hero__elev .obj-f { fill: #1b2224; stroke: #8a9497; }
+.hero__elev .thin,
+.hero__elev .hidden-edge,
+.hero__elev .centre { stroke: #5b6668; }
+.hero__elev .dim { stroke: #c04a56; }
+.hero__elev .dim-t { fill: #d4757e; }
+.hero__elev .part-t { fill: #6d7779; }
+
+/* Keeps the headline legible over whatever the curtain has uncovered. */
+.hero__scrim {
+  position: absolute; inset: 0; z-index: 2; pointer-events: none;
+  background:
+    linear-gradient(to top, #14181af2 0%, #14181ac9 20%, #14181a33 50%, transparent 72%),
+    linear-gradient(to right, #14181ad9 0%, #14181a73 28%, transparent 54%);
+}
 
 /* The curtain itself: a column of slats that retracts into the barrel.
    Slat pitch is a fraction of the stage, so the curtain reads at a plausible
@@ -373,7 +416,7 @@ h2.display {
 .hero__curtain {
   position: absolute; inset: 0;
   --pitch: calc(max(calc(100svh - var(--hdr)), 520px) / 24);
-  z-index: 2;
+  z-index: 1;
 }
 .hero__slat {
   position: absolute; top: 0; left: 0; right: 0;
@@ -396,6 +439,17 @@ h2.display {
   /* the shallow crown highlight that runs the length of every slat */
   content: ""; position: absolute; inset: 0;
   background: linear-gradient(to bottom, transparent 30%, #6d787a26 46%, transparent 62%);
+}
+
+.hero__rail {
+  position: absolute; top: 0; left: 0; right: 0;
+  height: calc(var(--pitch) * 0.9);
+  background: linear-gradient(to bottom, #4e5a5d 0%, #5c686b 22%, #2c3437 78%, #141a1c 100%);
+  border-top: 1px solid #76817f;
+  box-shadow: 0 3px 10px #00000073;
+  transform-origin: top center;
+  will-change: transform;
+  backface-visibility: hidden;
 }
 
 .hero__barrel {
@@ -933,6 +987,7 @@ h2.display {
      information, arrived at without the movement. */
   .hero { height: auto; }
   .hero__sticky { position: static; height: auto; min-height: min(84svh, 820px); }
+  /* The curtain contains the rail, so hiding it removes both. */
   .hero__curtain { display: none; }
   .hero__barrel { height: calc(var(--pitch, 28px) * 2.6); }
   .hero__scroll i { display: none; }

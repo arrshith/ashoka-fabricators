@@ -27,15 +27,19 @@ export function ShutterHero() {
   const section = useRef<HTMLElement>(null);
   const curtain = useRef<HTMLDivElement>(null);
   const barrel = useRef<HTMLDivElement>(null);
+  const rail = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
     const el = section.current;
     const stage = curtain.current?.parentElement;
-    const slats = curtain.current ? Array.from(curtain.current.children) as HTMLElement[] : [];
+    const slats = curtain.current
+      ? Array.from(curtain.current.querySelectorAll<HTMLElement>('.hero__slat'))
+      : [];
     const head = barrel.current;
-    if (!el || !stage || !slats.length || !head) return;
+    const bar = rail.current;
+    if (!el || !stage || !slats.length || !head || !bar) return;
 
     const pinned = stage.parentElement as HTMLElement;
 
@@ -53,24 +57,29 @@ export function ShutterHero() {
       offset = parseFloat(getComputedStyle(pinned).top) || 0;
     };
 
+    /** Hanging below the lintel, or coiled tight above it. */
+    const place = (el: HTMLElement, y: number) => {
+      if (y >= 0) {
+        el.style.transform = `translate3d(0,${y}px,0)`;
+        el.style.opacity = '1';
+        return false;
+      }
+      const depth = -y / pitch;
+      const squash = Math.max(COIL_SQUASH, 1 - depth * 0.42);
+      el.style.transform = `translate3d(0,${y * COIL_PITCH}px,0) scaleY(${squash})`;
+      el.style.opacity = String(Math.max(0.35, 1 - depth * 0.1));
+      return true;
+    };
+
     const paint = (p: number) => {
       const travel = p * (SLATS * pitch);
       let coiled = 0;
 
       for (let i = 0; i < slats.length; i++) {
-        const y = i * pitch - travel;
-        if (y >= 0) {
-          slats[i].style.transform = `translate3d(0,${y}px,0)`;
-          slats[i].style.opacity = '1';
-        } else {
-          // Past the lintel: stack tight into the barrel and foreshorten.
-          const depth = -y / pitch;
-          const squash = Math.max(COIL_SQUASH, 1 - depth * 0.42);
-          slats[i].style.transform = `translate3d(0,${y * COIL_PITCH}px,0) scaleY(${squash})`;
-          slats[i].style.opacity = String(Math.max(0.35, 1 - depth * 0.1));
-          coiled++;
-        }
+        if (place(slats[i], i * pitch - travel)) coiled++;
       }
+      place(bar, SLATS * pitch - travel);
+
       // The headbox thickens as the curtain accumulates on the barrel.
       head.style.height = `${Math.min(pitch * 3.4, coiled * pitch * COIL_PITCH + (coiled ? pitch * 0.9 : 0))}px`;
     };
@@ -109,7 +118,12 @@ export function ShutterHero() {
             {Array.from({ length: SLATS }, (_, i) => (
               <div className="hero__slat" key={i} style={{ transform: `translate3d(0,${i * 100}%,0)` }} />
             ))}
+            {/* The bottom rail. Without it the curtain's lower edge is just
+                where the slats stop, which reads as a clipping error rather
+                than the bottom of a shutter. */}
+            <div className="hero__rail" ref={rail} style={{ transform: `translate3d(0,${SLATS * 100}%,0)` }} />
           </div>
+          <div className="hero__scrim" />
           <div className="hero__barrel" ref={barrel} />
         </div>
 
@@ -153,7 +167,7 @@ export function ShutterHero() {
 function OpeningElevation() {
   const ns = { vectorEffect: 'non-scaling-stroke' } as const;
   return (
-    <svg className="hero__elev dwg dwg--inv" viewBox="0 0 1000 620" preserveAspectRatio="xMidYMid slice">
+    <svg className="hero__elev dwg dwg--inv" viewBox="0 0 1000 620" preserveAspectRatio="xMidYMid meet">
       {/* reveal / structural opening */}
       <rect className="thin" x="180" y="60" width="640" height="470" {...ns} />
       <rect className="obj" x="220" y="96" width="560" height="398" {...ns} />
