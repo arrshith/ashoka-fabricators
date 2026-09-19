@@ -4,9 +4,20 @@ const base=process.argv[2]||'http://localhost:5173';
 if(!['localhost','127.0.0.1'].includes(new URL(base).hostname))throw Error('This synthetic-data test is local-only.');
 const address=`test-${crypto.randomUUID()}`;
 const data={requestId:crypto.randomUUID(),product:'manual-rolling-shutters',projectType:'Commercial',width:'3000',height:'2400',unit:'mm',location:'Local QA test',requirements:'Synthetic integration test — not a business enquiry.',name:'QA Test',phone:'+15555550100',whatsapp:'',email:'qa@example.test',consent:true,website:''};
-async function submit(value,file,ip=address,origin=base){const form=new FormData();form.set('enquiry',JSON.stringify(value));if(file)form.append('files',file);const r=await fetch(`${base}/api/enquiries`,{method:'POST',headers:{Origin:origin,'cf-connecting-ip':ip},body:form});return {status:r.status,body:await r.text().then(t=>{try{return JSON.parse(t)}catch{return {error:t}}})};}
+async function submit(value,file,ip=address,origin=base){
+ for(let attempt=0;attempt<3;attempt++){
+  const form=new FormData();form.set('enquiry',JSON.stringify(value));if(file)form.append('files',file);
+  const r=await fetch(`${base}/api/enquiries`,{method:'POST',headers:{Origin:origin,'cf-connecting-ip':ip},body:form});
+  const result={status:r.status,body:await r.text().then(t=>{try{return JSON.parse(t)}catch{return {error:t}}})};
+  // Wrangler may restart its local runtime between requests. Only retry this explicit
+  // transport condition, retaining the exact idempotency reference and payload.
+  if(attempt<2&&result.status===503&&result.body.error?.startsWith('Your worker restarted mid-request')){await new Promise(r=>setTimeout(r,250));continue}
+  return result;
+ }
+}
 assert.equal((await submit(data,null,address,'https://untrusted.example')).status,403,'Cross-origin rejected');
-assert.equal((await submit({...data,phone:'invalid'},null,`${address}-invalid`)).status,400,'Invalid contact rejected');
+const invalidContact=await submit({...data,phone:'invalid'},null,`${address}-invalid`);
+assert.equal(invalidContact.status,400,`Invalid contact rejected: ${JSON.stringify(invalidContact.body)}`);
 assert.equal((await submit({...data,website:'spam.example'},null,`${address}-spam`)).status,400,'Honeypot rejected');
 assert.equal((await submit(data,new File(['fake image'],'fake.jpg',{type:'image/jpeg'}),`${address}-file`)).status,400,'Invalid file signature rejected');
 const file=new File([await readFile(new URL('../public/images/logo.jpg',import.meta.url))],'qa-logo.jpg',{type:'image/jpeg'});

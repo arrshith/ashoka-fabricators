@@ -2,6 +2,8 @@
 
 A working multi-page website for the Hyderabad rolling shutter, gate, automation and fabrication business. React 19, TypeScript, Vinext (Next.js App Router APIs on Vite/Cloudflare Workers), Tailwind 4, Radix/Shadcn controls, Zod, D1 and R2. Use supplied Worker scripts rather than ordinary `next dev`.
 
+Private review: https://ashoka-fabricators.supriya-naroju05.chatgpt.site (owner sign-in required).
+
 - [Research and client confirmation checklist](docs/RESEARCH.md)
 - [Asset sources and licenses](docs/ASSETS.md)
 - [Features and launch requirements](docs/HANDOVER.md)
@@ -32,6 +34,7 @@ On this Windows machine an npm shim issue occurred. Workarounds: `node C:/nvm4w/
 | Setting | Purpose |
 |---|---|
 | NEXT_PUBLIC_SITE_URL | Exact canonical origin, set before build |
+| SITE_URL | Trusted runtime canonical origin, overrides build-time origin |
 | RATE_LIMIT_SECRET | Required runtime secret for abuse-prevention digests |
 | ENQUIRY_WEBHOOK_URL | Optional trusted HTTPS business notification endpoint |
 | ENQUIRY_WEBHOOK_TOKEN | Optional secret bearer token |
