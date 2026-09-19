@@ -26,3 +26,47 @@ Architecture: Home → product collection → product detail → prefilled quote
 - Notification destination, approved retention policy and privacy contact.
 
 No invented testimonials, ratings, capacities, certifications, project stories or warranties. Content requirements live in documentation, not misleading public placeholders.
+
+---
+
+## Re-verified 20 September 2026 (rebuild)
+
+The primary profile was read again during the redesign. Facts the first pass
+did not capture, all from the company's own IndiaMART profile and seller page:
+
+- **Proprietorship.** GSTIN `36DVXPS6316E2ZX`, registered 2024.
+- **Up to 10 employees** (1–5 skilled, 1–5 semi-skilled).
+- **1,000 sq ft premises**, permanent structure, semi-urban, front porch.
+- Departments: manufacturing, designing, quality testing, warehousing,
+  packaging, sales & marketing.
+- **39 products across 8 categories**, including two the first build missed
+  entirely: **Boom Barriers** and **Shutter Locks**.
+- Full published catalogue names, now used verbatim as the product variants in
+  `lib/content.ts`: Perforated / Steel / Manual / Aluminium / Polycarbonate /
+  Flat Design Rolling Shutters; Electric / Motorized / Automatic Rolling
+  Shutters; Heavy Metal / Sliding / Swing Gates; Locking Gates; Rolling Shutter
+  Motor; Swing Gate Automation Motor; Sliding Gate Motor; Boom Barrier;
+  Heavy Metal / Stainless Steel / Mild Steel Fabrication Services;
+  MS C Channels; Shutter Locks.
+
+### Why the scale finding changed the design
+
+The original brief asked whether the site "communicates scale". For a
+ten-person, thousand-square-foot workshop, it deliberately does not. Performing
+the scale of a multinational door manufacturer would be untrue and would ring
+false to anyone who has visited. The site targets a premium of **precision and
+longevity** instead — fifty-four years, one workshop, made to the opening.
+This is recorded as a considered deviation from the brief, not an oversight.
+See `docs/DIRECTION.md`.
+
+### Address
+
+A further search found Fathe Nagar, Hyderabad 500018 listed on Justdial and
+ExportersIndia. The Justdial entry carries a conflicting GST number and
+founding year (1970 vs 1972), and a namesake business — "Ashok Rolling Shutters
+& Engineering Works" — trades in the same locality. The address is therefore
+**still unverified and not published**. It is listed as a TODO on the contact
+page and in `lib/company.ts`.
+
+No testimonials, ratings, capacities, certifications, project stories or
+warranties have been invented at any point.

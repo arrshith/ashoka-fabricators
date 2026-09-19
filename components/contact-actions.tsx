@@ -1,3 +1,75 @@
 'use client';
-import {usePathname} from 'next/navigation';import {MessageCircle} from 'lucide-react';import {products,company} from '@/lib/content';import {track} from '@/lib/analytics';
-export function ContactActions(){const path=usePathname();if(!company.whatsapp)return null;const p=products.find(p=>path===`/products/${p.slug}`);const message=`Hi Ashoka Fabricators, I am interested in ${p?p.name:'a rolling shutter, gate or fabrication solution'} for my project and would like to discuss my requirements.`;return <a className="wa-float" href={`https://wa.me/${company.whatsapp.replace(/\D/g,'')}?text=${encodeURIComponent(message)}`} target="_blank" rel="noreferrer" onClick={()=>track('whatsapp_click',{product:p?.slug||'general'})} aria-label={`Discuss ${p?.name||'your project'} on WhatsApp`}><MessageCircle size={22}/><span>Discuss on WhatsApp</span></a>}
+
+/**
+ * The persistent contact rail.
+ *
+ * On mobile this is a fixed bar; on desktop it is a single WhatsApp affordance.
+ * Channels that the company has not confirmed are not rendered at all, so the
+ * bar never offers a number that does not work. With nothing configured it
+ * still gets the visitor to the quote form and to the company's own listing.
+ */
+
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import { MessageCircle, Phone, PencilRuler, ExternalLink } from 'lucide-react';
+import { products, flatName } from '@/lib/content';
+import { company, waLink } from '@/lib/company';
+import { track } from '@/lib/analytics';
+
+/** Contextual message: on a product page, name the product. */
+function useMessage() {
+  const path = usePathname();
+  const product = products.find((p) => path === `/products/${p.slug}`);
+  const subject = product
+    ? flatName(product).toLowerCase()
+    : 'a rolling shutter, gate or fabrication project';
+  return {
+    product,
+    text: `Hi Ashoka Fabricators, I'd like to discuss ${subject} and get a quotation. `
+      + `My opening is roughly ___ wide × ___ high, in ___.`,
+  };
+}
+
+export function ContactActions() {
+  const { product, text } = useMessage();
+  const wa = waLink(text);
+
+  return (
+    <>
+      {wa && (
+        <a
+          className="wa-dock" href={wa} target="_blank" rel="noreferrer"
+          onClick={() => track('whatsapp_click', { product: product?.slug || 'general' })}
+          aria-label={`Message Ashoka Fabricators on WhatsApp about ${product ? flatName(product) : 'your project'}`}
+        >
+          <MessageCircle size={19} aria-hidden="true" />
+          <span>WhatsApp</span>
+        </a>
+      )}
+
+      <nav className="action-bar" aria-label="Contact Ashoka">
+        {company.phone && (
+          <a href={`tel:${company.phone}`} onClick={() => track('call_click', {})}>
+            <Phone size={17} aria-hidden="true" /> Call
+          </a>
+        )}
+        {wa && (
+          <a
+            href={wa} target="_blank" rel="noreferrer"
+            onClick={() => track('whatsapp_click', { product: product?.slug || 'general' })}
+          >
+            <MessageCircle size={17} aria-hidden="true" /> WhatsApp
+          </a>
+        )}
+        {!company.phone && !wa && (
+          <a href={company.profile} target="_blank" rel="noreferrer">
+            <ExternalLink size={17} aria-hidden="true" /> IndiaMART
+          </a>
+        )}
+        <Link href="/quote" data-primary="1">
+          <PencilRuler size={17} aria-hidden="true" /> Get a quote
+        </Link>
+      </nav>
+    </>
+  );
+}

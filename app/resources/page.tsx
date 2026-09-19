@@ -1,3 +1,48 @@
-import {Breadcrumbs,PageIntro} from '@/components/shared';import {articles} from '@/lib/content';import Link from 'next/link';import {ArrowUpRight} from 'lucide-react';import {pageMeta} from '@/lib/seo';
-export const metadata=pageMeta('Resources — plan your entrance','Practical questions to help prepare a rolling shutter, gate automation or custom fabrication enquiry.','/resources');
-export default function Resources(){return <div className="page-shell"><Breadcrumbs items={[{label:'Resources'}]}/><PageIntro label="A useful starting point" title="Good decisions begin with good questions." description="Short guides to help you prepare your brief and have a more useful conversation."/><div className="resource-grid">{articles.map(a=><article key={a.slug} className="resource-card"><span>Project planning</span><h2>{a.title}</h2><p>{a.description}</p><Link className="text-link" href={`/resources/${a.slug}`}>Read the guide <ArrowUpRight size={18}/></Link></article>)}</div></div>}
+import Link from 'next/link';
+import { ArrowUpRight } from 'lucide-react';
+import { Breadcrumbs, PageHead, JsonLd } from '@/components/shared';
+import { articles } from '@/lib/content';
+import { pageMeta, siteUrl } from '@/lib/seo';
+
+export const metadata = pageMeta(
+  'Notes — preparing a shutter, gate or automation enquiry',
+  'Short, practical guidance on choosing between manual and automatic operation, preparing a project brief, and planning gate automation.',
+  '/resources',
+);
+
+export default function Resources() {
+  return (
+    <div className="shell">
+      <JsonLd data={{
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Home', item: siteUrl },
+          { '@type': 'ListItem', position: 2, name: 'Notes', item: `${siteUrl}/resources` },
+        ],
+      }} />
+
+      <Breadcrumbs items={[{ label: 'Notes' }]} />
+      <PageHead
+        label="Working notes"
+        title={<>What to work out<br />before you ask.</>}
+        lede="Three short pieces on the decisions that come up first. Written to help you ask a better question, not to sell you a product."
+      />
+
+      <ol className="note-list">
+        {articles.map((a, i) => (
+          <li key={a.slug}>
+            <Link href={`/resources/${a.slug}`}>
+              <span className="meta meta--annot">
+                {String(i + 1).padStart(2, '0')} · {a.readMinutes} min read
+              </span>
+              <h2>{a.title}</h2>
+              <p className="body-c">{a.description}</p>
+              <span className="link">Read <ArrowUpRight size={14} /></span>
+            </Link>
+          </li>
+        ))}
+      </ol>
+    </div>
+  );
+}

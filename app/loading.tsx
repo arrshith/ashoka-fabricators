@@ -1,1 +1,7 @@
-export default function Loading(){return <div className="page-shell" role="status" style={{paddingTop:80}}>Loading your next page…</div>}
+export default function Loading() {
+  return (
+    <div className="shell" role="status" style={{ paddingTop: 90 }}>
+      <p className="meta">Loading…</p>
+    </div>
+  );
+}

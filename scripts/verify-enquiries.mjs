@@ -20,7 +20,7 @@ const invalidContact=await submit({...data,phone:'invalid'},null,`${address}-inv
 assert.equal(invalidContact.status,400,`Invalid contact rejected: ${JSON.stringify(invalidContact.body)}`);
 assert.equal((await submit({...data,website:'spam.example'},null,`${address}-spam`)).status,400,'Honeypot rejected');
 assert.equal((await submit(data,new File(['fake image'],'fake.jpg',{type:'image/jpeg'}),`${address}-file`)).status,400,'Invalid file signature rejected');
-const file=new File([await readFile(new URL('../public/images/logo.jpg',import.meta.url))],'qa-logo.jpg',{type:'image/jpeg'});
+const file=new File([await readFile(new URL('../assets/source-images/logo.jpg',import.meta.url))],'qa-logo.jpg',{type:'image/jpeg'});
 const saved=await submit(data,file);assert.equal(saved.status,201,JSON.stringify(saved));assert.equal(saved.body.id,data.requestId);assert.equal(saved.body.notification,'unconfigured');
 const again=await submit(data,file);assert.equal(again.status,200);assert.equal(again.body.id,data.requestId,'Idempotent retry');
 assert.equal((await submit({...data,name:'Changed'},null)).status,409,'Reference collision rejected');

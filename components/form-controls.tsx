@@ -1,4 +1,54 @@
-'use client';
-import {RadioGroup,RadioGroupItem} from '@/components/ui/radio-group';import {Select,SelectTrigger,SelectValue,SelectContent,SelectItem} from '@/components/ui/select';
-export function ChoiceGroup({name,value,options,onChange}:{name:string;value:string;options:{value:string;label:string}[];onChange:(v:string)=>void}){return <RadioGroup className="choices" aria-label={name} value={value} onValueChange={onChange}>{options.map(o=><label key={o.value} className="choice" htmlFor={`${name}-${o.value}`}><RadioGroupItem id={`${name}-${o.value}`} value={o.value}/><span>{o.label}</span></label>)}</RadioGroup>}
-export function UnitSelect({value,onChange}:{value:string;onChange:(v:string)=>void}){return <div className="field"><label htmlFor="dimension-unit">Measurement unit</label><Select value={value} onValueChange={onChange}><SelectTrigger id="dimension-unit" style={{width:'100%',height:48,borderRadius:0,fontSize:16}}><SelectValue/></SelectTrigger><SelectContent>{['mm','cm','m','ft'].map(x=><SelectItem key={x} value={x}>{({mm:'Millimetres (mm)',cm:'Centimetres (cm)',m:'Metres (m)',ft:'Feet (ft)'})[x]}</SelectItem>)}</SelectContent></Select></div>}
+/**
+ * Native form controls.
+ *
+ * These were Radix Select / RadioGroup / Checkbox, which cost around 60KB of
+ * JavaScript on the quote route to reimplement behaviour the platform already
+ * has. A four-option unit picker in particular is better native: on a phone it
+ * opens the system picker instead of a scrolling div. Keyboard support, form
+ * association and screen-reader semantics all come for free, and this file is
+ * now a server component.
+ */
+
+export function ChoiceGroup({
+  name, value, options, onChange,
+}: {
+  name: string;
+  value: string;
+  options: { value: string; label: string }[];
+  onChange: (v: string) => void;
+}) {
+  const group = name.toLowerCase().replace(/\s+/g, '-');
+  return (
+    <fieldset className="choices">
+      <legend className="sr-only">{name}</legend>
+      {options.map((o) => (
+        <label className="choice" key={o.value}>
+          <input
+            type="radio" name={group} value={o.value}
+            checked={value === o.value}
+            onChange={() => onChange(o.value)}
+          />
+          <span>{o.label}</span>
+        </label>
+      ))}
+    </fieldset>
+  );
+}
+
+const units: [string, string][] = [
+  ['mm', 'Millimetres (mm)'],
+  ['cm', 'Centimetres (cm)'],
+  ['m', 'Metres (m)'],
+  ['ft', 'Feet (ft)'],
+];
+
+export function UnitSelect({ value, onChange }: { value: string; onChange: (v: string) => void }) {
+  return (
+    <label className="field">
+      <span>Measured in</span>
+      <select value={value} onChange={(e) => onChange(e.target.value)}>
+        {units.map(([k, label]) => <option key={k} value={k}>{label}</option>)}
+      </select>
+    </label>
+  );
+}

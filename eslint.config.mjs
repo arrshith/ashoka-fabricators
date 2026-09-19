@@ -12,15 +12,18 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Build artefacts and untouched source photographs.
+    "dist/**",
+    "assets/**",
   ]),
   {
-    files: ["components/ui/**/*.{ts,tsx}", "hooks/use-mobile.ts"],
     rules: {
-      // These files are vendored verbatim from shadcn@4.17.0. Keep the
-      // registry source intact while applying the stricter rules to Site code.
-      "@typescript-eslint/no-unused-vars": "off",
-      "react-hooks/purity": "off",
-      "react-hooks/set-state-in-effect": "off",
+      // Every photograph on this site is a pre-cropped WebP served at or below
+      // its native pixel size — see docs/DIRECTION.md. There is nothing for an
+      // image optimiser to do, and next/image would add a loader and a runtime
+      // to resize files that must not be resized. Plain <img> with explicit
+      // width/height is the correct element here.
+      "@next/next/no-img-element": "off",
     },
   },
 ]);
