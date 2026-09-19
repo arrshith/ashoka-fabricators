@@ -124,6 +124,24 @@ Also: the `02 / THE PROBLEM` chapter number straddled the hero/paper seam,
 putting a paper-coloured chip on the dark hero. The first chapter after the
 hero is now dropped clear of it.
 
+### Second pass — headline collision and copy
+
+4. **The headline ran across the drawing.** Splitting the stage moved the
+   drawing right but nothing constrained the copy, so at 1920px the third
+   line reached x=1255 while the drawing started at x=1000 — straight over
+   the H dimension. The copy column is now capped at 54% and the headline at
+   94px (it was 112px, which was also simply loud). Measured after the fix:
+   headline ends at 933, drawing ink starts at 1157.
+5. **`width: auto` on the `<svg>` did not do what it looked like.** Sized by
+   left/right offsets, the element fell back to its intrinsic viewBox width,
+   so the drawing painted 1002px wide and ran 309px past the stage. The
+   positioning now lives on a wrapper div and the svg fills it. Verified:
+   ink spans 1157–1723 inside a stage ending at 1905, clipped on neither
+   axis.
+6. **The lede repeated the kicker.** "Hyderabad · Established 1972" sat three
+   lines above "in one Hyderabad workshop, since 1972". The lede now ends on
+   the differentiator instead: "made to the opening, not to a standard size".
+
 ## Known, accepted
 
 - **Streaming SSR heading order.** The served HTML places page content in a

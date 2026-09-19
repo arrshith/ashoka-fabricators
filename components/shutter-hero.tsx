@@ -113,7 +113,12 @@ export function ShutterHero() {
       <div className="hero__sticky">
         <div className="hero__stage" aria-hidden="true">
           <div className="hero__grid" />
-          <OpeningElevation />
+          {/* A wrapper carries the positioning. Sizing the <svg> itself with
+              left/right offsets and `width: auto` makes it fall back to its
+              intrinsic viewBox width, which overflowed the stage. */}
+          <div className="hero__elevbox">
+            <OpeningElevation />
+          </div>
           <div className="hero__curtain" ref={curtain}>
             {Array.from({ length: SLATS }, (_, i) => (
               <div className="hero__slat" key={i} style={{ transform: `translate3d(0,${i * 100}%,0)` }} />
@@ -134,9 +139,12 @@ export function ShutterHero() {
           <h1 className="display d-xl">
             Engineered<br />entrances.<br /><em>Built to measure.</em>
           </h1>
+          {/* The kicker above already carries Hyderabad and 1972; repeating
+              them here was the whole of this sentence's second half. It now
+              spends that space on what actually distinguishes the work. */}
           <p className="lede" style={{ color: 'var(--ink-inv-2)' }}>
             Rolling shutters, gates, entrance automation and steel fabrication —
-            made to the opening, in one Hyderabad workshop, since 1972.
+            made to the opening, not to a standard size.
           </p>
           <div className="hero__cta">
             <Link className="btn" href="/quote">

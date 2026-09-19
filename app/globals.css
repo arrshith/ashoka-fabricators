@@ -379,17 +379,16 @@ h2.display {
    2. On a wide stage it takes the right half only. Sharing the full width
       with the headline meant the copy and its scrim covered half the
       drawing, which left stray lines again. */
-.hero__elev {
-  position: absolute; inset: 0; width: 100%; height: 100%;
-  padding: 5vh 0 9vh;
-}
+.hero__elevbox { position: absolute; inset: 0; padding: 5vh 0 9vh; }
+.hero__elev { width: 100%; height: 100%; }
+
 @media (min-width: 1100px) {
-  .hero__elev { left: 46%; right: 3%; width: auto; padding-block: 7vh; }
+  .hero__elevbox { left: 57%; right: 5%; padding-block: 7vh; }
 }
 /* Below that there is no room to split the stage, so the drawing sits behind
    the headline and steps back to being texture rather than a figure. */
 @media (max-width: 1099px) {
-  .hero__elev { opacity: 0.6; }
+  .hero__elevbox { opacity: 0.6; }
 }
 
 /* Pitched down from the shared .dwg palette — this one is a backdrop. */
@@ -465,7 +464,15 @@ h2.display {
   align-self: end;
   max-width: 1180px;
 }
-.hero h1 { margin-bottom: 22px; }
+/* The headline has to stop where the drawing starts. Without this the third
+   line ran straight across the elevation and its H dimension. */
+@media (min-width: 1100px) {
+  .hero__copy { max-width: 54%; }
+}
+
+/* Sized so the longest line clears the drawing column at every width, and
+   because at 112px it was simply shouting. */
+.hero h1 { font-size: clamp(38px, 4.6vw, 94px); margin-bottom: 22px; }
 .hero h1 em { font-style: normal; color: var(--steel); }
 
 .hero__kicker { display: flex; align-items: center; gap: 14px; margin-bottom: clamp(20px, 4vh, 40px); }
