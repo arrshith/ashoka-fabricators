@@ -6,12 +6,12 @@
  * On mobile this is a fixed bar; on desktop it is a single WhatsApp affordance.
  * Channels that the company has not confirmed are not rendered at all, so the
  * bar never offers a number that does not work. With nothing configured it
- * still gets the visitor to the quote form and to the company's own listing.
+ * still gets the visitor to the quote form.
  */
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { MessageCircle, Phone, PencilRuler, ExternalLink } from 'lucide-react';
+import { MessageCircle, Phone, PencilRuler } from 'lucide-react';
 import { products, flatName } from '@/lib/content';
 import { company, waLink } from '@/lib/company';
 import { track } from '@/lib/analytics';
@@ -59,11 +59,6 @@ export function ContactActions() {
             onClick={() => track('whatsapp_click', { product: product?.slug || 'general' })}
           >
             <MessageCircle size={17} aria-hidden="true" /> WhatsApp
-          </a>
-        )}
-        {!company.phone && !wa && (
-          <a href={company.profile} target="_blank" rel="noreferrer">
-            <ExternalLink size={17} aria-hidden="true" /> IndiaMART
           </a>
         )}
         <Link href="/quote" data-primary="1">

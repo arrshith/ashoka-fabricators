@@ -89,3 +89,42 @@ display and mono faces are preloaded.
 Icons: `lucide-react` (ISC).
 
 Manrope, used by the previous build, has been removed.
+
+
+## Update — 28 September 2026
+
+At the client's request the IndiaMART listing is no longer a source. Its
+catalogue photographs (`centro.webp`, `shutter-face.webp`, `motor.webp`) and
+their originals were removed. `board.webp` and `premises.webp` (the company's
+own signboard and frontage) remain pending the client's confirmation.
+
+### Client photographs (supplied in chat, 28 Sep 2026)
+
+| Served | Source | Shows |
+|---|---|---|
+| `industrial.webp` | `industrial-warehouse.webp` | Galvanised warehouse shutter with the ASHOKA plate |
+| `industrial-shed.webp` | `industrial-shed.webp` | Perforated galvanised shutter in a factory shed |
+| `archive-team.webp` | `archive-ashok-2.jpg` | Team outside Ashok Rolling Shutters |
+| `archive-staff.webp`, `archive-opening.webp`, `archive-street.webp` | `archive-ashok-1.jpg` (cropped) | Prints of the original unit |
+
+Strip samples (`strip-*.webp`) are kept only as the reference for the drawn
+profiles in `components/drawings.tsx`; they are not served.
+
+### Free-licence photographs (Wikimedia Commons)
+
+Illustrative only; every caption on the site says so and credits the author.
+
+| Served | Commons file | Author | Licence |
+|---|---|---|---|
+| `mat-mild-steel.webp` | Rolled coils in Tornio Sep2008.jpg | Methem (Mikko J. Putkonen) | Public domain |
+| `mat-galvanised.webp` | Galvanized surface.jpg | Splarka (en.wikipedia) | Public domain |
+| `mat-galvalume.webp` | Galvalume sheetmetal surface.jpg | Pinqui | CC BY-SA 3.0 |
+| `mat-aluminium.webp` | Strangkkp.jpg | Ulfbastel | Public domain |
+| `mat-polycarbonate.webp` | Twinwall Polycarbonate Sheet.jpg | MaterialScience100 | CC BY-SA 4.0 |
+
+### Client-supplied reference photographs (28 Sep 2026)
+
+`commercial.webp`, `commercial-perforated.webp` (both cropped clear of the store's
+brand sign), `residential.webp`, `residential-polycarbonate.webp`,
+`residential-grille.webp`. Supplied by the client, who confirmed on 28 Sep 2026 that they may be reused. Client logos in `public/images/clients/` are cut
+from the client-list sheet the client supplied.

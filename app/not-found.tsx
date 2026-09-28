@@ -1,12 +1,16 @@
 import Link from 'next/link';
 import { ArrowUpRight, ArrowRight } from 'lucide-react';
 
+// Without this the 404 inherits the homepage's title, so a broken link reads
+// as the homepage in the tab, in history and to a crawler.
+export const metadata = { title: 'Page not found' };
+
 export default function NotFound() {
   return (
     <div className="shell">
       <div className="page-head">
         <p className="meta meta--annot">Error 404</p>
-        <h1 className="display d-lg">Nothing<br />at this opening.</h1>
+        <h1 className="display d-lg">Nothing <br />at this opening.</h1>
         <p className="lede" style={{ marginTop: 26 }}>
           That page does not exist. The range, the workshop and the quote form
           are all still where you left them.

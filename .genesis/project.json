@@ -1,0 +1,210 @@
+{
+  "schema_version": 2,
+  "project": {
+    "name": "Ashoka-fabricators",
+    "mode": "adopt",
+    "profile": "prototype",
+    "objective": "Define the project objective.",
+    "constraints": [],
+    "non_goals": [],
+    "trust_boundary": "local repository",
+    "created_at": "2026-09-19T21:20:05.505Z",
+    "updated_at": "2026-09-19T21:32:43.304Z"
+  },
+  "policy": {
+    "ponytail": "full",
+    "autonomy": "human-in-the-loop",
+    "learned_rule_promotion": "human-required",
+    "cleanup": "propose-only",
+    "traces": {
+      "storage": "local",
+      "commit_raw": false,
+      "redact_secrets": true
+    }
+  },
+  "lifecycle": {
+    "phase": "planning",
+    "status": "active",
+    "active_task": null,
+    "blocker": null,
+    "next_action": "Create requirement-linked implementation tasks with executable gates, then run genesis plan check."
+  },
+  "commands": {
+    "test": {
+      "command": "npm test",
+      "status": "unverified",
+      "source": "package.json"
+    }
+  },
+  "workflow": {
+    "type": "new-product",
+    "started_at": "2026-09-19T21:25:18.033Z",
+    "spec_check": {
+      "at": "2026-09-19T21:32:24.973Z",
+      "source_hash": "ce8d6c0244981c457f7251a21965a30b76b0ff295d2c5f6173ae7883913be000",
+      "requirements": [
+        "AC-1",
+        "AC-2",
+        "AC-3",
+        "AC-4",
+        "AC-5",
+        "AC-6",
+        "FR-1",
+        "FR-2",
+        "FR-3",
+        "FR-4",
+        "FR-5",
+        "NFR-1",
+        "NFR-2",
+        "NFR-3",
+        "NFR-4",
+        "NFR-5"
+      ]
+    },
+    "plan_check": null,
+    "plan_approval": null
+  },
+  "artifacts": [
+    {
+      "id": "SPEC-1",
+      "type": "specification",
+      "path": "SPEC.md",
+      "status": "approved",
+      "requirements": [
+        "AC-1",
+        "AC-2",
+        "AC-3",
+        "AC-4",
+        "AC-5",
+        "AC-6",
+        "FR-1",
+        "FR-2",
+        "FR-3",
+        "FR-4",
+        "FR-5",
+        "NFR-1",
+        "NFR-2",
+        "NFR-3",
+        "NFR-4",
+        "NFR-5"
+      ],
+      "source_hash": "ce8d6c0244981c457f7251a21965a30b76b0ff295d2c5f6173ae7883913be000",
+      "approval": {
+        "human": "Arrshith",
+        "reason": "Reviewed and approved the Ashoka Fabricators website specification.",
+        "at": "2026-09-19T21:32:43.175Z",
+        "source_hash": "ce8d6c0244981c457f7251a21965a30b76b0ff295d2c5f6173ae7883913be000"
+      }
+    }
+  ],
+  "assumptions": [],
+  "invariants": [],
+  "decisions": [
+    {
+      "id": "DECISION-22185f63",
+      "title": "Project objective",
+      "text": "Build and improve the Ashoka Fabricators website.",
+      "status": "accepted",
+      "source": null,
+      "recorded_at": "2026-09-19T21:23:52.269Z",
+      "paths": [],
+      "tags": []
+    }
+  ],
+  "knowledge": [],
+  "tasks": [
+    {
+      "id": "SPEC-1",
+      "outcome": "Produce an approved, implementation-ready product specification",
+      "state": "done",
+      "risk": "medium",
+      "owner": null,
+      "scope": [
+        "SPEC.md"
+      ],
+      "dependencies": [],
+      "requirements": [],
+      "gates": [
+        {
+          "id": "independent-review",
+          "command": "",
+          "mandatory": true,
+          "status": "pass",
+          "evidence": {
+            "human": "Arrshith",
+            "reason": "Reviewed and approved the Ashoka Fabricators website specification.",
+            "source_hash": "53df1f29054dde1a12bdae7428e315666358fb552c67bcebecb13cb2e9c02b8a",
+            "observed_at": "2026-09-19T21:32:43.175Z"
+          },
+          "kind": "review"
+        }
+      ],
+      "next_action": "Interview the human, record durable context, and replace every placeholder in SPEC.md.",
+      "blocker": null,
+      "notes": [],
+      "failures": [],
+      "limitations": [],
+      "created_at": "2026-09-19T21:25:18.034Z",
+      "updated_at": "2026-09-19T21:32:43.175Z"
+    }
+  ],
+  "learning_proposals": [],
+  "cleanup_proposals": [],
+  "controls": [],
+  "attempts": [],
+  "authorizations": [],
+  "experiments": [],
+  "incidents": [],
+  "discovery": {
+    "files": 192,
+    "languages": [
+      "javascript/typescript"
+    ],
+    "extensions": {
+      ".css": 2,
+      ".env": 1,
+      ".example": 1,
+      ".gitignore": 1,
+      ".jpg": 5,
+      ".json": 12,
+      ".md": 7,
+      ".mjs": 11,
+      ".npmrc": 1,
+      ".png": 1,
+      ".sh": 4,
+      ".sites-runtime/wrangler/dev-registry/site-creator-vinext-starter": 1,
+      ".sql": 1,
+      ".sqlite": 5,
+      ".sqlite-shm": 4,
+      ".sqlite-wal": 4,
+      ".ts": 23,
+      ".tsbuildinfo": 1,
+      ".tsx": 88,
+      ".txt": 1,
+      ".vars": 1,
+      ".webp": 6,
+      ".woff2": 5,
+      ".wrangler/registry/__asset-worker__": 1,
+      ".wrangler/registry/__router-worker__": 1,
+      ".wrangler/registry/__vite_proxy_worker__": 1,
+      ".wrangler/registry/site-creator-vinext-starter": 1,
+      ".wrangler/state/v3/r2/site-creator-r2/blobs/1c47972f92b270d103831ff8b5926937fe4e292ad6244b9bde69b675feb9de62000001a0b79f8f90": 1,
+      ".wrangler/state/v3/r2/site-creator-r2/blobs/ab9174b866f7cea5f4fadad9494b8679fe46eb53776ae35836fcb6c94d5b29fb000001a0b9939157": 1
+    },
+    "commands": {
+      "test": {
+        "command": "npm test",
+        "status": "unverified",
+        "source": "package.json"
+      }
+    },
+    "legacy_genesis": false,
+    "revision": {
+      "commit": "c7acd7b47c3fcdfb062dc36d0eb54a9839d11869",
+      "dirty": true,
+      "source_hash": "49fbf97d36074173f9b779623364214fcf12f6efa5618dd0c076e4f2939d7411"
+    }
+  },
+  "checkpoint": null,
+  "legacy": null
+}

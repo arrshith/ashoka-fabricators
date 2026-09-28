@@ -164,10 +164,12 @@ h2.display {
 }
 
 /* A chapter rule sits on the section's top edge with its number straddling
-   it. Straight after the hero that edge is the dark/paper boundary, so the
-   number's paper-coloured backing lands on the hero. Drop the first chapter
-   clear of the seam. */
-.hero + .wrap { padding-top: clamp(26px, 3.5vw, 58px); }
+   it, on an opaque backing. Wherever that edge is also a dark/paper seam,
+   half the chip lands on the wrong colour. Keep every rule off a seam: the
+   first chapter after a dark panel, and the first chapter inside one. */
+.hero + .wrap,
+.on-dark + .wrap,
+.on-dark > .wrap { padding-top: clamp(26px, 3.5vw, 58px); }
 
 /* A numbered section, with the drafting margin down the left edge. */
 .chapter { position: relative; padding-block: clamp(64px, 9vw, 132px); }
@@ -306,6 +308,8 @@ h2.display {
 .dwg .obj { fill: none; stroke: var(--ink); stroke-width: 1.25; }
 .dwg .obj-f { fill: var(--paper-2); stroke: var(--ink); stroke-width: 1.25; }
 .dwg .thin { fill: none; stroke: var(--steel); stroke-width: 0.75; }
+/* A sheet seen end-on: heavier than an outline so the section reads as metal. */
+.dwg .sect { fill: none; stroke: var(--ink); stroke-width: 3; stroke-linejoin: round; stroke-linecap: round; }
 .dwg .hidden-edge { fill: none; stroke: var(--steel); stroke-width: 0.75; stroke-dasharray: 5 4; }
 .dwg .centre { fill: none; stroke: var(--steel); stroke-width: 0.6; stroke-dasharray: 14 4 3 4; }
 .dwg .dim { fill: none; stroke: var(--annot); stroke-width: 0.9; }
@@ -386,9 +390,13 @@ h2.display {
   .hero__elevbox { left: 57%; right: 5%; padding-block: 7vh; }
 }
 /* Below that there is no room to split the stage, so the drawing sits behind
-   the headline and steps back to being texture rather than a figure. */
+   the headline and steps back to being texture rather than a figure. At 0.6
+   it was still a figure — its lines ran through the headline and lede. 0.2
+   actually makes it texture. Its labels are dropped: at this size they render
+   at ~6px, and illegible text behind a headline is noise, not information. */
 @media (max-width: 1099px) {
-  .hero__elevbox { opacity: 0.6; }
+  .hero__elevbox { opacity: 0.2; }
+  .hero__elev text { display: none; }
 }
 
 /* Pitched down from the shared .dwg palette — this one is a backdrop. */
@@ -672,6 +680,18 @@ h2.display {
   text-transform: uppercase; color: var(--steel);
 }
 .crumbs a:hover { color: var(--ink); }
+
+/* Touch targets. Measured on a phone: the logo link was 29px tall, footer
+   links 34px and breadcrumbs 18px, against a 44px minimum. Scoped to coarse
+   pointers so the desktop layout is untouched. */
+@media (pointer: coarse) {
+  .brand { min-height: 44px; }
+  /* Footer links are handled beside the footer rules — here, the later
+     `.ftr__grid a { padding: 6px 0 }` would win on source order. */
+  /* The link's own padding replaces the bar's, so the bar keeps its height. */
+  .crumbs { padding-block: 9px; }
+  .crumbs a { display: inline-block; padding-block: 13px; }
+}
 .crumbs span { display: flex; align-items: center; gap: 9px; }
 
 .page-head { padding: clamp(24px, 4vw, 52px) 0 clamp(34px, 5vw, 66px); }
@@ -744,6 +764,11 @@ h2.display {
 /* Notes ------------------------------------------------------- */
 
 .note-list { list-style: none; padding: 0; display: grid; gap: 1px; background: var(--rule); border-block: 1px solid var(--rule); }
+/* The 1px gap shows the grid's rule colour as hairlines, which only works if
+   every card fills its cell. The <li> stretches to the row; making it a grid
+   lets the <a> stretch with it, instead of leaving the rule colour exposed as
+   a grey block under any card with less copy than its neighbours. */
+.note-list > li { display: grid; }
 .note-list > li > a {
   display: grid; gap: 12px; align-content: start;
   background: var(--paper); padding: 28px 24px 30px;
@@ -934,6 +959,12 @@ h2.display {
 }
 .ftr__bottom nav { display: flex; gap: 22px; }
 
+/* Touch targets for the footer, placed after the rules they override. */
+@media (pointer: coarse) {
+  .ftr__grid a { padding-block: 11px; }
+  .ftr__bottom nav a { display: inline-block; padding-block: 13px; }
+}
+
 /* --- 17. Contact rail --------------------------------------- */
 
 .action-bar { display: none; }
@@ -999,3 +1030,49 @@ h2.display {
   .hero__barrel { height: calc(var(--pitch, 28px) * 2.6); }
   .hero__scroll i { display: none; }
 }
+
+/* --- 20. Rolling shutters: photo bands, materials, strips, operation --- */
+
+.band__fig--photo { padding: 0; background: var(--paper-2); overflow: hidden; min-height: 0; }
+.band__fig--photo img { width: 100%; height: 100%; max-height: 440px; object-fit: cover; display: block; }
+
+.mats { display: grid; gap: 1px; background: var(--rule); border: 1px solid var(--rule); }
+@media (min-width: 720px) { .mats { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 1180px) { .mats { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.mat { background: var(--paper); padding: clamp(20px, 2.4vw, 32px); display: flex; flex-direction: column; gap: 12px; }
+.mat__img { margin: 0 0 8px; aspect-ratio: 3 / 2; overflow: hidden; background: var(--paper-2); }
+.mat__img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.mat__name {
+  font-family: var(--font-display); font-weight: 700; text-transform: uppercase;
+  font-size: clamp(26px, 2.4vw, 34px); line-height: 1; letter-spacing: -0.01em;
+}
+.mat__sum { color: var(--ink-2); font-size: 15px; }
+.mat__pc { display: grid; gap: 16px; margin-top: 6px; }
+.mat__pc ul { list-style: none; padding: 0; margin: 8px 0 0; display: grid; gap: 7px; }
+.mat__pc li { position: relative; padding-left: 20px; font-size: 14.5px; line-height: 1.45; }
+.mat__pc li::before { content: "+"; position: absolute; left: 0; top: 0; font-family: var(--font-mono); color: var(--ink); }
+.mat__pc .con li::before { content: "\2212"; color: var(--annot); }
+.mat__credit { margin-top: auto; padding-top: 10px; font-size: 11.5px; color: var(--steel); line-height: 1.4; }
+
+.strips { display: grid; gap: 1px; background: var(--rule); border: 1px solid var(--rule); }
+@media (min-width: 720px) { .strips { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.strip { margin: 0; background: #fff; padding: clamp(18px, 2.4vw, 30px); display: grid; gap: 14px; }
+.strip__dwg { padding: 8px 0; }
+.strip h3 { font-family: var(--font-display); font-weight: 700; text-transform: uppercase; font-size: 24px; line-height: 1; margin: 8px 0; }
+.strip h3 span { color: var(--steel); }
+.strip figcaption > p:last-child { color: var(--ink-2); font-size: 15px; max-width: 44ch; }
+
+.ledger li.op { display: grid; grid-template-columns: 150px 1fr; gap: 16px; align-items: baseline; }
+.op__v { color: var(--ink-2); font-size: 15px; }
+
+/* --- 21. Our story ------------------------------------------------ */
+.story__lead { margin: 0 auto clamp(20px, 3vw, 40px); }
+.story__prints { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin-top: 28px; align-items: start; }
+@media (max-width: 640px) { .story__prints { grid-template-columns: 1fr 1fr; } }
+.story__prints .ref img { filter: none; }
+
+/* --- 22. Client logos --------------------------------------------- */
+.logo-set + .logo-set { margin-top: clamp(28px, 3.5vw, 44px); }
+.logo-grid { list-style: none; padding: 0; margin: 14px 0 0; display: grid; gap: 10px; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
+.logo-grid li { display: grid; place-items: center; height: 92px; background: #fff; border: 1px solid var(--rule); }
+.logo-grid img { max-width: 138px; height: auto; }

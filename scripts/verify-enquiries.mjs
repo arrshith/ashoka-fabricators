@@ -3,7 +3,7 @@ import {readFile} from 'node:fs/promises';
 const base=process.argv[2]||'http://localhost:5173';
 if(!['localhost','127.0.0.1'].includes(new URL(base).hostname))throw Error('This synthetic-data test is local-only.');
 const address=`test-${crypto.randomUUID()}`;
-const data={requestId:crypto.randomUUID(),product:'manual-rolling-shutters',projectType:'Commercial',width:'3000',height:'2400',unit:'mm',location:'Local QA test',requirements:'Synthetic integration test — not a business enquiry.',name:'QA Test',phone:'+15555550100',whatsapp:'',email:'qa@example.test',consent:true,website:''};
+const data={requestId:crypto.randomUUID(),product:'commercial-rolling-shutters',projectType:'Commercial',width:'3000',height:'2400',unit:'mm',location:'Local QA test',requirements:'Synthetic integration test — not a business enquiry.',name:'QA Test',phone:'+15555550100',whatsapp:'',email:'qa@example.test',consent:true,website:''};
 async function submit(value,file,ip=address,origin=base){
  for(let attempt=0;attempt<3;attempt++){
   const form=new FormData();form.set('enquiry',JSON.stringify(value));if(file)form.append('files',file);

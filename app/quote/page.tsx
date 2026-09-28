@@ -27,7 +27,7 @@ export default function Quote() {
         <aside className="quote-aside">
           <p className="meta meta--annot">Enquiry</p>
           <h1 className="display d-md" style={{ margin: '20px 0 22px' }}>
-            Two numbers<br />and a name.
+            Two numbers <br />and a name.
           </h1>
           <p className="body-c">
             That is the whole requirement. Everything else on this form is

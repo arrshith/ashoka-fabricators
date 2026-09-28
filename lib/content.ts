@@ -1,16 +1,22 @@
 /**
  * Product and editorial content.
  *
- * The `variants` lists are the product names Ashoka actually publishes on its
- * own catalogue — they are not descriptions of capability beyond that. No
- * dimensions, load ratings, motor brands, finishes or warranty terms appear
- * anywhere in this file, because none have been supplied. Where a page would
- * naturally want one, `unconfirmed` carries a TODO instead.
+ * Rolling shutters are roughly nine-tenths of Ashoka's work, so they lead:
+ * three applications (commercial, residential, industrial), then the materials,
+ * strip profiles and ways of operating that every shutter is built from.
+ * Gates, automation and fabrication follow as the secondary range.
+ *
+ * No dimensions, load ratings, motor models or warranty terms appear here;
+ * those are confirmed in writing with each quotation.
  */
+
+import type { StripKey } from '@/components/drawings';
 
 export type DrawingKey =
   | 'shutter-auto' | 'shutter-manual' | 'gate-sliding'
   | 'gate-swing' | 'automation' | 'fabrication';
+
+export type Photo = { src: string; w: number; h: number; alt: string; caption: string };
 
 export type Product = {
   slug: string;
@@ -22,85 +28,120 @@ export type Product = {
   drawing: DrawingKey;
   intro: string;
   detail: string;
-  /** Catalogue names published by the company. */
+  /** The kinds made within this product. */
   variants: string[];
   applications: string[];
   /** What the customer should tell us — the brief, not a spec sheet. */
   brief: string[];
-  /** Facts a buyer will ask for that the company has not yet supplied. */
-  unconfirmed: string[];
   /**
-   * Catalogue photographs, with their true native pixel size. Nothing is ever
-   * rendered above these numbers — that rule is what keeps the site sharp.
-   * Products with no usable photograph simply have none.
+   * Photographs, with their true native pixel size. Nothing is ever rendered
+   * above these numbers. Captions say plainly whether a photograph is
+   * Ashoka's own work or an illustrative free-licence image.
    */
-  refs?: { src: string; w: number; h: number; alt: string; caption: string }[];
+  refs?: Photo[];
 };
 
 export const products: Product[] = [
   {
-    slug: 'automatic-rolling-shutters',
-    name: 'Automatic\nrolling shutters',
+    slug: 'commercial-rolling-shutters',
+    name: 'Commercial\nrolling shutters',
     family: 'Rolling shutters',
-    code: 'RS-A',
-    tagline: 'Powered opening, on one axis, every day.',
+    code: 'RS-C',
+    tagline: 'Shopfronts, showrooms and shopping complexes.',
     drawing: 'shutter-auto',
     intro:
-      'A motor-driven curtain that rises into a barrel above the opening. Suited to entrances that are opened and closed often enough that doing it by hand becomes the bottleneck.',
+      'Shutters for shops, showrooms and the frontages of shopping complexes: closed every night, opened every morning, and seen by everyone who walks past.',
     detail:
-      'The shutter and its drive are specified together. Curtain material, guide depth, headroom above the lintel, duty cycle and the controls you want all shape the selection, and all of them are settled against your actual opening rather than a catalogue default.',
-    variants: ['Electric Rolling Shutters', 'Motorized Rolling Shutters', 'Automatic Rolling Shutters'],
-    applications: ['Retail entrances', 'Showroom frontages', 'Commercial openings', 'Warehouse access'],
+      'On a retail frontage the shutter is part of the display. Perforated and polycarbonate curtains keep the shop window visible after closing; solid galvanised or galvalume curtains close it off completely. Wide frontages, and shutters opened many times a day, are usually motorised.',
+    variants: ['Solid steel curtains', 'Perforated curtains', 'Polycarbonate see-through curtains', 'Manual, motorised or remote'],
+    applications: ['Shops and showrooms', 'Shopping complexes and malls', 'Banks and offices', 'Restaurants and kiosks'],
     brief: [
       'Clear opening width and height, approximate is fine',
       'Headroom above the lintel and space at each side',
-      'How many times a day it will be operated',
-      'Available power supply and how you want to control it',
+      'Whether the display should stay visible after closing',
+      'How many times a day it will be opened',
     ],
-    unconfirmed: [
-      'Maximum manufacturable width and height.',
-      'Motor brands, duty ratings and datasheets.',
-      'Safety devices offered — bottom-edge sensing, manual override on power failure.',
-      'Warranty terms and service intervals.',
+    refs: [
+      {
+        src: '/images/commercial.webp', w: 590, h: 310,
+        alt: 'A see-through polycarbonate rolling shutter closed across a mall storefront, the display lit behind it',
+        caption: 'Polycarbonate see-through shutter on a mall storefront.',
+      },
+      {
+        src: '/images/commercial-perforated.webp', w: 330, h: 400,
+        alt: 'A perforated rolling shutter with a brick-pattern grille closed across a shopfront',
+        caption: 'Perforated brick-pattern shutter on a shopfront.',
+      },
     ],
-    refs: [{
-      src: '/images/centro.webp', w: 238, h: 238,
-      alt: 'A metal rolling shutter closed across a Centro store frontage',
-      caption: 'Centro storefront. Centro is named as a client on the company profile; the photograph is company-listed and shown at its native size.',
-    }],
   },
   {
-    slug: 'manual-rolling-shutters',
-    name: 'Manual\nrolling shutters',
+    slug: 'residential-rolling-shutters',
+    name: 'Residential\nrolling shutters',
     family: 'Rolling shutters',
-    code: 'RS-M',
-    tagline: 'The mechanism that has closed shopfronts for fifty years.',
+    code: 'RS-R',
+    tagline: 'Homes, indoor openings and car garages.',
     drawing: 'shutter-manual',
     intro:
-      'A counterbalanced curtain lifted by hand. For openings where the shutter is moved once or twice a day and a motor would be servicing a problem that does not exist.',
+      'Shutters for houses: garage entrances, ground-floor openings and indoor partitions, where the shutter has to be quiet, tidy and easy for anyone in the family to operate.',
     detail:
-      'Ashoka lists steel, aluminium, perforated and polycarbonate curtains. Perforated and polycarbonate curtains trade some opacity for daylight and visibility of the display behind, which matters on a retail frontage and rarely matters on a store room.',
-    variants: [
-      'Manual Rolling Shutters', 'Steel Rolling Shutters', 'Perforated Rolling Shutters',
-      'Aluminium Rolling Shutters', 'Polycarbonate Rolling Shutters', 'Flat Design Rolling Shutter',
-    ],
-    applications: ['Shops', 'Store rooms', 'Commercial premises', 'Secondary entrances'],
+      'A garage shutter is opened at least twice a day, often by someone sitting in the car, which is where a remote-controlled motor earns its place. Indoors and on balconies, a polycarbonate curtain gives security without shutting out the light.',
+    variants: ['Garage shutters', 'Indoor and balcony shutters', 'Polycarbonate see-through curtains', 'Remote-controlled'],
+    applications: ['Car garages', 'Ground-floor openings', 'Indoor partitions', 'Balconies and terraces'],
     brief: [
       'Clear opening width and height, approximate is fine',
-      'Who will be operating it, and how often',
-      'Whether you need daylight or visibility through the curtain',
-      'Material and finish preference, if you have one',
+      'Headroom above the opening and space at each side',
+      'Whether you want to open it by hand or by remote',
+      'Whether you want light or a view through it',
     ],
-    unconfirmed: [
-      'Curtain gauges, profiles and available finishes.',
-      'Maximum manufacturable width for each curtain material.',
-      'Locking arrangements supplied as standard.',
+    refs: [
+      {
+        src: '/images/residential.webp', w: 1000, h: 1000,
+        alt: 'A motorised aluminium rolling shutter half open over a house garage, a car parked inside',
+        caption: 'Motorised garage shutter, with the drive housing beside the barrel.',
+      },
+      {
+        src: '/images/residential-polycarbonate.webp', w: 900, h: 1015,
+        alt: 'A see-through polycarbonate shutter in a dark frame across a garden-facing opening, with potted plants in front',
+        caption: 'Polycarbonate shutter across a garden-facing opening.',
+      },
+      {
+        src: '/images/residential-grille.webp', w: 736, h: 981,
+        alt: 'A dark grille rolling shutter closed in front of a glazed double door',
+        caption: 'Grille shutter in front of an entrance door.',
+      },
     ],
-    refs: [{
-      src: '/images/shutter-face.webp', w: 484, h: 269,
-      alt: 'Close view of a galvanised perforated rolling shutter curtain in its guides',
-      caption: 'Perforated curtain, from the company catalogue. Cropped only to remove the catalogue frame.',
-    }],
+  },
+  {
+    slug: 'industrial-rolling-shutters',
+    name: 'Industrial\nrolling shutters',
+    family: 'Rolling shutters',
+    code: 'RS-I',
+    tagline: 'Factories, godowns and warehouses.',
+    drawing: 'shutter-auto',
+    intro:
+      'Large, heavy-duty shutters for factories, godowns, warehouses and loading bays: openings a truck drives through, closed on stock worth protecting.',
+    detail:
+      'Industrial openings are wide and tall, so the curtain is heavy and the barrel, brackets and guides are sized to match. Most are motorised, and Ashoka builds each motor to suit the load it has to lift rather than fitting one standard unit to every size.',
+    variants: ['Heavy-duty steel curtains', 'Wide-span openings', 'Motors built to the load', 'Manual or remote operation'],
+    applications: ['Factories', 'Godowns', 'Warehouses', 'Loading bays'],
+    brief: [
+      'Clear opening width and height, approximate is fine',
+      'Headroom above the opening and space at each side',
+      'What passes through it — people, forklifts or trucks',
+      'Power supply available at the opening',
+    ],
+    refs: [
+      {
+        src: '/images/industrial.webp', w: 900, h: 1196,
+        alt: 'A tall galvanised rolling shutter closing a warehouse opening, with the ASHOKA plate on its bottom rail',
+        caption: 'A galvanised warehouse shutter by Ashoka Fabricators. The ASHOKA plate is on the bottom rail.',
+      },
+      {
+        src: '/images/industrial-shed.webp', w: 576, h: 837,
+        alt: 'A perforated galvanised rolling shutter in a factory shed, with the barrel and brackets exposed above it',
+        caption: 'A perforated galvanised shutter by Ashoka in a factory shed, barrel and brackets exposed above.',
+      },
+    ],
   },
   {
     slug: 'security-gates',
@@ -113,18 +154,13 @@ export const products: Product[] = [
       'Sliding and swing gates in mild and heavy steel, fabricated to the opening. The choice between sliding and swinging is usually decided by the ground, not by preference.',
     detail:
       'A swing gate needs a clear arc on one side and reasonably level ground through that arc. A sliding gate needs a run-back roughly as long as the opening is wide, and a track or cantilever path kept clear. Which of those your site can give up is the first question.',
-    variants: ['Sliding Gate', 'Swing Gate', 'Heavy Metal Gate', 'Locking Gates'],
+    variants: ['Sliding gates', 'Swing gates', 'Heavy metal gates', 'Locking gates'],
     applications: ['Property entrances', 'Commercial access', 'Compound boundaries', 'Vehicle gates'],
     brief: [
       'Clear opening width, and the space either side of it',
       'Whether the ground is level, and how it drains',
       'Vehicle and pedestrian traffic through the same opening',
       'Whether it will be automated now or later',
-    ],
-    unconfirmed: [
-      'Section sizes, infill options and finishes.',
-      'Maximum leaf width for swing and sliding configurations.',
-      'Foundation and civil work included in, or excluded from, supply.',
     ],
   },
   {
@@ -135,28 +171,17 @@ export const products: Product[] = [
     tagline: 'The drive, the controls, and everything between.',
     drawing: 'automation',
     intro:
-      'Motors for rolling shutters, swing gates and sliding gates, plus boom barriers for controlled vehicle access. Automation is specified against the thing it has to move, not on its own.',
+      'Motors and remote control for rolling shutters, and automation systems for sliding and swing gates. Automation is specified against the thing it has to move, not on its own.',
     detail:
-      'Retrofitting a motor to an existing shutter or gate depends on the condition of what is already there — the barrel, the bearings, the guides, the alignment. That has to be inspected. A drive fitted to a mechanism that was already binding will not fix it; it will break it faster.',
-    variants: ['Rolling Shutter Motor', 'Swing Gate Automation Motor', 'Sliding Gate Motor', 'Boom Barrier'],
-    applications: ['Existing rolling shutters', 'Swing gates', 'Sliding gates', 'Vehicle entry control'],
+      'Shutter motors are built to the load: the width, height and material of the curtain decide the drive. Retrofitting a motor to an existing shutter or gate also depends on the condition of what is already there — the barrel, the bearings, the guides, the alignment — and a drive fitted to a mechanism that already binds will break it faster.',
+    variants: ['Rolling shutter motors, built to the load', 'Remote control', 'Sliding gate automation', 'Swing gate automation'],
+    applications: ['New rolling shutters', 'Existing rolling shutters', 'Sliding gates', 'Swing gates'],
     brief: [
       'What you are automating, and whether it is new or existing',
-      'Its approximate weight and size, or a photograph of it',
+      'Its approximate size and material, or a photograph of it',
       'How often it will run each day',
       'Power supply, and what should happen during an outage',
     ],
-    unconfirmed: [
-      'Motor brands, models, duty ratings and datasheets.',
-      'Safety devices offered — photocells, edge sensing, obstruction detection.',
-      'Manual release arrangement on power failure.',
-      'Boom barrier arm lengths and cycle ratings.',
-    ],
-    refs: [{
-      src: '/images/motor.webp', w: 250, h: 101,
-      alt: 'Two rolling shutter drive units photographed against a white background',
-      caption: 'Drive units from the company catalogue. Brands and ratings are not confirmed.',
-    }],
   },
   {
     slug: 'custom-fabrication',
@@ -168,22 +193,14 @@ export const products: Product[] = [
     intro:
       'Heavy metal, mild steel and stainless steel fabrication. The work that does not have a catalogue entry, because it only exists once.',
     detail:
-      'This is where a fifty-four-year-old workshop earns its keep: the opening that is not rectangular, the frame that has to meet an existing structure, the replacement for something nobody makes any more. Send a drawing if you have one. A dimensioned sketch and a photograph is usually enough to start.',
-    variants: [
-      'Heavy Metal Fabrication Services', 'Mild Steel Fabrication Services',
-      'Stainless Steel Fabrication Services', 'MS C Channels', 'Shutter Locks',
-    ],
+      'This is where nearly six decades in one trade earn their keep: the opening that is not rectangular, the frame that has to meet an existing structure, the replacement for something nobody makes any more. Send a drawing if you have one. A dimensioned sketch and a photograph is usually enough to start.',
+    variants: ['Heavy metal fabrication', 'Mild steel fabrication', 'Stainless steel fabrication', 'Shutter locks and fittings'],
     applications: ['Non-standard openings', 'Grilles and frames', 'Structural steelwork', 'Repairs and replacements'],
     brief: [
       'A drawing, sketch or photograph of what you need',
       'Material and finish, if it matters to you',
       'Where it has to fit, and what it has to meet',
       'Site access and when you need it',
-    ],
-    unconfirmed: [
-      'Materials and sections routinely held or sourced.',
-      'Fabrication processes available in-house versus subcontracted.',
-      'Surface treatment and finishing options.',
     ],
   },
 ];
@@ -192,6 +209,109 @@ export const productBySlug = (slug: string) => products.find((p) => p.slug === s
 
 /** Plain single-line name, for titles, menus and form options. */
 export const flatName = (p: Product) => p.name.replace('\n', ' ');
+
+export const shutters = products.filter((p) => p.family === 'Rolling shutters');
+export const secondary = products.filter((p) => p.family !== 'Rolling shutters');
+
+/* --- What a shutter is made of ------------------------------------------ */
+
+/**
+ * Curtain materials, with the mill each is bought from. Advantages and
+ * disadvantages are general properties of the material, not claims about a
+ * particular product; keep them that way.
+ */
+export type Material = {
+  slug: string;
+  name: string;
+  supplier: string;
+  summary: string;
+  pros: string[];
+  cons: string[];
+  image: Photo;
+};
+
+export const materials: Material[] = [
+  {
+    slug: 'mild-steel',
+    name: 'Mild steel',
+    supplier: 'Tata Steel',
+    summary: 'Plain carbon steel, painted after fabrication. The traditional shutter material, and still the most economical.',
+    pros: ['The most affordable option', 'Strong, and easy to weld and repair', 'Can be painted any colour'],
+    cons: ['Rusts and corrodes if the paint is not maintained', 'The heaviest to lift, so it needs more effort or a larger motor'],
+    image: {
+      src: '/images/mat-mild-steel.webp', w: 720, h: 478,
+      alt: 'Coils of hot-rolled steel on railway wagons',
+      caption: 'Hot-rolled steel coils. Photo: Methem, public domain, via Wikimedia Commons.',
+    },
+  },
+  {
+    slug: 'galvanised-iron',
+    name: 'Galvanised iron',
+    supplier: 'AM/NS India',
+    summary: 'Steel coated in zinc at the mill. The zinc corrodes first, protecting the steel underneath.',
+    pros: ['Far better rust resistance than bare mild steel', 'Low maintenance, with no paint needed', 'Good value over its lifespan'],
+    cons: ['The coating wears at cuts and scratches, and white rust can form in damp or salty air', 'As heavy as mild steel', 'A plain silver finish unless painted, which needs a suitable primer'],
+    image: {
+      src: '/images/mat-galvanised.webp', w: 720, h: 480,
+      alt: 'Close view of the crystalline spangle pattern on a galvanised steel sheet',
+      caption: 'The zinc spangle of galvanised steel. Public domain, via Wikimedia Commons.',
+    },
+  },
+  {
+    slug: 'galvalume',
+    name: 'Galvalume',
+    supplier: 'JSW',
+    summary: 'Steel coated with an aluminium–zinc alloy, about 55% aluminium: the barrier protection of aluminium with the sacrificial protection of zinc.',
+    pros: ['Typically outlasts plain galvanised steel several times over in the same conditions', 'Reflects heat, keeping the space behind it cooler', 'Available pre-painted in colours'],
+    cons: ['Costs more than galvanised iron', 'Cut edges are less self-protecting than on galvanised steel', 'Damaged by contact with wet cement, lime or plaster'],
+    image: {
+      src: '/images/mat-galvalume.webp', w: 277, h: 263,
+      alt: 'Close view of the fine, even surface of a galvalume sheet',
+      caption: 'Galvalume sheet surface. Photo: Pinqui, CC BY-SA 3.0, via Wikimedia Commons.',
+    },
+  },
+  {
+    slug: 'aluminium',
+    name: 'Aluminium',
+    supplier: 'Trusted suppliers',
+    summary: 'Extruded aluminium slats, usually powder-coated. Light, and naturally resistant to rust.',
+    pros: ['About a third of the weight of steel, so easier to lift and to motorise', 'Does not rust, even in humid or coastal air', 'A clean powder-coated or anodised finish'],
+    cons: ['Dents more easily than steel', 'Less resistant to forced entry than a steel curtain', 'Costs more than steel'],
+    image: {
+      src: '/images/mat-aluminium.webp', w: 659, h: 774,
+      alt: 'Cut sections of extruded aluminium profiles laid out beside a ruler',
+      caption: 'Extruded aluminium profiles. Photo: Ulfbastel, public domain, via Wikimedia Commons.',
+    },
+  },
+  {
+    slug: 'polycarbonate',
+    name: 'Polycarbonate',
+    supplier: 'Trusted suppliers',
+    summary: 'Clear polycarbonate panels held in an aluminium frame. A shutter you can see through.',
+    pros: ['See-through, so a shop display stays visible after closing', 'Far more impact-resistant than glass', 'Lets daylight in while the shutter is down'],
+    cons: ['The most expensive of the five', 'Can scratch, and yellows over time unless UV-stabilised', 'Less secure than a solid metal curtain'],
+    image: {
+      src: '/images/mat-polycarbonate.webp', w: 720, h: 540,
+      alt: 'A clear ribbed polycarbonate sheet standing on edge against a grey background',
+      caption: 'Clear polycarbonate sheet. Photo: MaterialScience100, CC BY-SA 4.0, via Wikimedia Commons.',
+    },
+  },
+];
+
+/** Strip (patti) profiles, as drawn from the workshop's own samples. */
+export const strips: { key: StripKey; name: string; alias?: string; note: string }[] = [
+  { key: 'semi-round', name: 'Semi round', note: 'A shallow arched strip. The curve stiffens it across the width of the opening. The classic shutter profile.' },
+  { key: 'semi-flat-large', name: 'Semi flat, large', note: 'A wide, flat face between two grooves. Fewer joints up the height of the shutter, and a cleaner look.' },
+  { key: 'semi-flat-small', name: 'Semi flat, small', note: 'The same flat face on a narrower strip, for smaller openings and a finer line across the curtain.' },
+  { key: 'flat', name: 'Flat', alias: 'Kerala patti', note: 'A completely flat strip, rolled under at both edges. The most even face of the four.' },
+];
+
+/** How a shutter is opened. */
+export const operation: [string, string][] = [
+  ['Manual', 'Lifted by hand on a spring-balanced barrel. For shutters opened once or twice a day.'],
+  ['Motorised', 'Driven by a motor at the push of a button, for heavy curtains and busy entrances.'],
+  ['Remote control', 'Opened from a remote, from inside a car or across a shop floor.'],
+];
 
 /* --- Editorial ------------------------------------------------------- */
 

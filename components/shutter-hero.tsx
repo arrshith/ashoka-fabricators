@@ -134,30 +134,30 @@ export function ShutterHero() {
 
         <div className="hero__copy">
           <p className="hero__kicker meta">
-            <i /> <span>Hyderabad · Established 1972</span>
+            <i /> <span>Hyderabad · Since the late 1960s</span>
           </p>
           <h1 className="display d-xl">
-            Engineered<br />entrances.<br /><em>Built to measure.</em>
+            Engineered <br />entrances. <br /><em>Built to measure.</em>
           </h1>
-          {/* The kicker above already carries Hyderabad and 1972; repeating
+          {/* The kicker above already carries Hyderabad and the heritage; repeating
               them here was the whole of this sentence's second half. It now
               spends that space on what actually distinguishes the work. */}
           <p className="lede" style={{ color: 'var(--ink-inv-2)' }}>
-            Rolling shutters, gates, entrance automation and steel fabrication —
-            made to the opening, not to a standard size.
+            Commercial, residential and industrial rolling shutters, manual or
+            remote-controlled, made to the opening rather than to a stock size.
           </p>
           <div className="hero__cta">
             <Link className="btn" href="/quote">
               Get a quote <ArrowUpRight size={16} />
             </Link>
-            <Link className="link" href="/#solutions">
-              Explore solutions <ArrowRight size={14} />
+            <Link className="link" href="/products">
+              Explore rolling shutters <ArrowRight size={14} />
             </Link>
           </div>
         </div>
 
         <div className="hero__foot">
-          <a className="hero__scroll meta" href="#solutions">
+          <a className="hero__scroll meta" href="#what-we-make">
             <i /> Scroll to open
           </a>
           <span className="meta" aria-hidden="true">FIG. 01 — ROLLING SHUTTER, ELEVATION</span>
@@ -198,17 +198,17 @@ function OpeningElevation() {
         <line className="dim" x1="220" y1="536" x2="220" y2="556" {...ns} />
         <line className="dim" x1="780" y1="536" x2="780" y2="556" {...ns} />
         <path className="dim" d="M234 540l-14 6 14 6M766 540l14 6-14 6" {...ns} />
-        <text className="dim-t" x="500" y="538" textAnchor="middle" style={{ fontSize: 15 }}>W</text>
+        <text className="dim-t" x="500" y="538" textAnchor="middle" style={{ fontSize: 26 }}>W</text>
       </g>
       <g>
         <line className="dim" x1="130" y1="96" x2="130" y2="494" {...ns} />
         <line className="dim" x1="120" y1="96" x2="140" y2="96" {...ns} />
         <line className="dim" x1="120" y1="494" x2="140" y2="494" {...ns} />
         <path className="dim" d="M124 110l6-14 6 14M124 480l6 14 6-14" {...ns} />
-        <text className="dim-t" x="114" y="295" textAnchor="middle" transform="rotate(-90 114 295)" style={{ fontSize: 15 }}>H</text>
+        <text className="dim-t" x="114" y="295" textAnchor="middle" transform="rotate(-90 114 295)" style={{ fontSize: 26 }}>H</text>
       </g>
 
-      <text className="dim-t" x="860" y="574" textAnchor="end" style={{ fontSize: 12 }}>
+      <text className="dim-t" x="860" y="586" textAnchor="end" style={{ fontSize: 22 }}>
         DIMENSIONS: YOURS
       </text>
     </svg>

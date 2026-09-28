@@ -47,3 +47,6 @@ next-env.d.ts
 /.codex/
 /outputs/
 /work/
+# Genesis: raw local traces and the regenerable code index.
+/.genesis/local/
+/.genesis/index/

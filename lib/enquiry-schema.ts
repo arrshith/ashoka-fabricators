@@ -1,7 +1,12 @@
 import {z} from 'zod';
+import {products} from '@/lib/content';
+// Derived from the product data, never hand-listed: a hand-written copy said
+// 'automation-motors' while the form sent the real slug 'entrance-automation',
+// so every automation enquiry failed validation.
+const productValues:[string,...string[]]=['not-sure',...products.map(p=>p.slug)];
 const optionalDimension=z.string().max(12).refine(v=>!v||(/^\d+(\.\d{1,3})?$/.test(v)&&Number(v)>0),'Enter a positive measurement, or leave blank.');
 export const enquirySchema=z.object({
- requestId:z.string().uuid(),product:z.enum(['automatic-rolling-shutters','manual-rolling-shutters','security-gates','automation-motors','custom-fabrication','not-sure']),
+ requestId:z.string().uuid(),product:z.enum(productValues),
  projectType:z.enum(['Residential','Commercial','Industrial','Retail','Warehouse','Other']),
  width:optionalDimension,height:optionalDimension,unit:z.enum(['mm','cm','m','ft']),
  location:z.string().trim().min(2,'Enter your project location.').max(160),requirements:z.string().trim().max(3000),

@@ -1,5 +1,6 @@
 import { Breadcrumbs, PageHead } from '@/components/shared';
 import { pageMeta } from '@/lib/seo';
+import { company } from '@/lib/company';
 
 export const metadata = pageMeta(
   'Privacy notice',
@@ -33,7 +34,7 @@ export default function Privacy() {
 
         <h2>External services</h2>
         <p>
-          IndiaMART, Google Maps and WhatsApp are separate services with their own
+          Google Maps and WhatsApp are separate services with their own
           privacy policies. Following those links, or loading the embedded map,
           may share technical information with them. WhatsApp messages are sent
           only when you choose to send them from within WhatsApp.
@@ -50,16 +51,11 @@ export default function Privacy() {
 
         <h2>Access, correction and deletion</h2>
         <p>
-          Contact Ashoka through its published IndiaMART listing, quoting your
+          Email Ashoka at {company.email} or call {company.phone}, quoting your
           enquiry reference, to request access to, correction of, or deletion of
           your enquiry.
         </p>
 
-        <div className="note">
-          A retention schedule and a named privacy contact must be confirmed by the
-          business before this site goes live. Until then, this notice describes
-          how the system behaves, not a finalised policy.
-        </div>
       </div>
     </div>
   );

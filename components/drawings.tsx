@@ -253,6 +253,58 @@ function FabricationProfiles() {
 
 /* ---------------------------------------------------------------- */
 
+/**
+ * Shutter strip (patti) cross-sections, traced from the workshop's own
+ * samples. Each is one sheet of steel seen end-on: a hook curl on one edge and
+ * a tube curl on the other, which is how neighbouring strips lock together.
+ * Proportions follow the samples; no gauge or width is stated because none has
+ * been supplied, so the width is labelled W.
+ */
+export type StripKey = 'semi-round' | 'semi-flat-large' | 'semi-flat-small' | 'flat';
+
+/** Line to the arc's start, then the arc. Angles in degrees, 0 = +x, 90 = down. */
+function arc(cx: number, cy: number, r: number, a0: number, a1: number) {
+  const pt = (a: number) => `${(cx + r * Math.cos((a * Math.PI) / 180)).toFixed(1)} ${(cy + r * Math.sin((a * Math.PI) / 180)).toFixed(1)}`;
+  return `L${pt(a0)} A${r} ${r} 0 ${Math.abs(a1 - a0) > 180 ? 1 : 0} ${a1 > a0 ? 1 : 0} ${pt(a1)}`;
+}
+
+/** A path that starts at the arc's own start point. */
+const from = (a: string) => a.replace(/^L/, 'M');
+
+const STRIPS: Record<StripKey, { d: string; x1: number; x2: number }> = {
+  // A single arch between an open hook (left) and a closed tube (right).
+  'semi-round': {
+    d: `${from(arc(70, 122, 10, 30, 270))} L80 112 A150 150 0 0 1 320 112 ${arc(330, 122, 10, -90, 240)}`,
+    x1: 60, x2: 340,
+  },
+  // Raised flat face, a groove at each side, a bead on the left and a tube on the right.
+  'semi-flat-large': {
+    d: `${from(arc(66, 104, 8, 60, 270))} L78 96 L90 116 L104 116 L116 88 L288 88 L300 116 L312 116 L321 110 ${arc(331, 104, 10, 150, 480)}`,
+    x1: 58, x2: 341,
+  },
+  // Narrower: a tube on the left, the raised face, then a step down to a half-round rib.
+  'semi-flat-small': {
+    d: `${from(arc(100, 98, 8, 300, 630))} L110 88 L236 88 L244 110 L252 110 A18 18 0 0 1 288 110 L288 114 ${arc(282, 114, 6, 0, 160)}`,
+    x1: 92, x2: 288,
+  },
+  // Kerala patti: a flat strip, rolled under at both edges.
+  flat: {
+    d: `${from(arc(70, 108, 10, -30, 270))} L330 98 ${arc(330, 108, 10, 270, 570)}`,
+    x1: 60, x2: 340,
+  },
+};
+
+export function StripProfile({ kind }: { kind: StripKey }) {
+  const s = STRIPS[kind];
+  return (
+    <svg className="dwg" viewBox="0 0 400 170" role="img" aria-label={`Cross-section of a ${kind.replace(/-/g, ' ')} shutter strip`}>
+      <line className="centre" x1="20" y1="104" x2="380" y2="104" {...ns} />
+      <path className="sect" d={s.d} {...ns} />
+      <DimH x1={s.x1} x2={s.x2} y={150} label="W" drop={12} />
+    </svg>
+  );
+}
+
 export function Drawing({ kind }: { kind: DrawingKey }) {
   switch (kind) {
     case 'shutter-auto': return <ShutterElevation powered />;

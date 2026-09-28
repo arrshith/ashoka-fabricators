@@ -50,7 +50,7 @@ export function SectionHead({
   );
 }
 
-/** An item the company has not supplied. Shown, never filled in. */
+/** A marker for an item still to be supplied. */
 export function Todo({ children }: { children: React.ReactNode }) {
   return <span className="todo">{children}</span>;
 }

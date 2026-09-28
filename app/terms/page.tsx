@@ -41,9 +41,8 @@ export default function Terms() {
 
         <h2>Company information</h2>
         <p>
-          Company facts on this site are taken from Ashoka Fabricators&rsquo; own
-          published profile. Where a detail has not been supplied, the site says
-          so rather than estimating it.
+          Product information on this site is general guidance. Specifications,
+          prices and lead times are confirmed in writing with each quotation.
         </p>
       </div>
     </div>

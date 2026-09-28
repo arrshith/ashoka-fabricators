@@ -6,8 +6,8 @@ import { useEffect, useState } from 'react';
 import { ArrowUpRight, Menu, X } from 'lucide-react';
 
 const links: [string, string, string][] = [
-  ['Solutions', '/products', 'RS · GT · AU · FB'],
-  ['Workshop', '/about', 'EST. 1972'],
+  ['Rolling shutters', '/products', 'COMMERCIAL · RESIDENTIAL · INDUSTRIAL'],
+  ['Our story', '/about', 'SINCE THE 1960S'],
   ['Projects', '/projects', 'REFERENCES'],
   ['Notes', '/resources', 'GUIDANCE'],
   ['Contact', '/contact', 'HYDERABAD'],
@@ -41,7 +41,7 @@ export function SiteHeader() {
   return (
     <header className="hdr">
       <Link className="brand" href="/" aria-label="Ashoka Fabricators — home">
-        <img src="/images/logo-mark.webp" width={108} height={37} alt="Ashoka" />
+        <img src="/images/logo-mark.svg" width={108} height={37} alt="Ashoka" />
         <span className="brand__txt" aria-hidden="true">Fabricators</span>
       </Link>
 
@@ -75,7 +75,7 @@ export function SiteHeader() {
             </Link>
           ))}
           <Link href="/quote">Get a quote <span aria-hidden="true">→</span></Link>
-          <p className="meta">Hyderabad, Telangana · Established 1972</p>
+          <p className="meta">Hyderabad, Telangana · Since the late 1960s</p>
         </nav>
       )}
     </header>

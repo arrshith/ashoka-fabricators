@@ -19,7 +19,7 @@
 import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
-import { ArrowRight, ArrowLeft, Check, Upload, Download, ExternalLink } from 'lucide-react';
+import { ArrowRight, ArrowLeft, Check, Upload, Download } from 'lucide-react';
 
 import { products, flatName } from '@/lib/content';
 import { company, waLink } from '@/lib/company';
@@ -211,17 +211,13 @@ export function QuoteForm() {
         </ul>
 
         <div className="note">
-          {receipt.notification === 'sent'
-            ? 'The business notification service has received your enquiry.'
-            : 'Automatic notification to the business is not configured yet. To be certain it is seen, send the same details through the IndiaMART listing below and quote your reference.'}
+          We have your enquiry. For anything urgent, call or WhatsApp {company.phone} and quote your reference.
         </div>
 
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: '14px 24px', alignItems: 'center', marginTop: 26 }}>
           <button className="btn" onClick={download}>Save your brief <Download size={16} /></button>
           {wa && <a className="link" href={wa} target="_blank" rel="noreferrer">Send on WhatsApp <ArrowRight size={14} /></a>}
-          <a className="link" href={company.profile} target="_blank" rel="noreferrer">
-            IndiaMART listing <ExternalLink size={13} />
-          </a>
+          {company.phone && <a className="link" href={`tel:${company.phone.replace(/s/g, '')}`}>Call {company.phone} <ArrowRight size={14} /></a>}
         </div>
 
         <p className="meta" style={{ marginTop: 24 }}>

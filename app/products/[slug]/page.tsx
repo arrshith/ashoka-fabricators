@@ -23,11 +23,11 @@ const faqs: [string, string][] = [
   ['What should I send with my first enquiry?',
     'The approximate width and height of the opening with the unit you measured in, what the opening is for, your location, and one clear photograph taken from ground level. That is enough to have a real conversation.'],
   ['Can you make a non-standard size?',
-    'Yes — everything here is made to the opening rather than to a stock size, and the company profile describes products in different dimensions, shapes and sizes. Feasibility for your specific opening still has to be confirmed by the team.'],
+    'Yes. Everything here is made to the measured opening rather than to a stock size. Feasibility for your specific opening is confirmed when it is measured.'],
   ['Does the price include installation?',
-    'Ask for the scope in writing. Product, controls, delivery, site preparation, installation, making good, lead time and warranty should each be stated in the quotation. This site does not publish prices, because none have been supplied.'],
+    'Ask for the scope in writing. Product, controls, delivery, site preparation, installation, making good, lead time and warranty should each be stated in the quotation. Prices depend on the size, material and operation, so every quotation is prepared for the opening.'],
   ['How long does it take?',
-    'Lead times depend on the work and the current workload, and have not been published. Ask for a date in writing when you ask for the price.'],
+    'Lead times depend on the size of the job and the current workload. You get a date in writing with the quotation.'],
 ];
 
 export default async function ProductDetail({ params }: { params: Promise<{ slug: string }> }) {
@@ -56,7 +56,7 @@ export default async function ProductDetail({ params }: { params: Promise<{ slug
         '@type': 'BreadcrumbList',
         itemListElement: [
           { '@type': 'ListItem', position: 1, name: 'Home', item: siteUrl },
-          { '@type': 'ListItem', position: 2, name: 'Solutions', item: `${siteUrl}/products` },
+          { '@type': 'ListItem', position: 2, name: 'Rolling shutters', item: `${siteUrl}/products` },
           { '@type': 'ListItem', position: 3, name: flatName(p), item: url },
         ],
       }} />
@@ -69,14 +69,14 @@ export default async function ProductDetail({ params }: { params: Promise<{ slug
         })),
       }} />
 
-      <Breadcrumbs items={[{ label: 'Solutions', href: '/products' }, { label: flatName(p) }]} />
+      <Breadcrumbs items={[{ label: 'Rolling shutters', href: '/products' }, { label: flatName(p) }]} />
 
       {/* Hero -------------------------------------------------- */}
       <div className="prod-hero">
         <div>
           <p className="meta meta--annot">{p.family} · {p.code}</p>
           <h1 className="display d-lg" style={{ margin: '20px 0 22px' }}>
-            {p.name.split('\n').map((l, n) => <span key={n}>{l}<br /></span>)}
+            {p.name.split('\n').map((l, n) => <span key={n}>{l} <br /></span>)}
           </h1>
           <p className="lede">{p.tagline}</p>
           <p className="body-c" style={{ marginTop: 20 }}>{p.intro}</p>
@@ -84,7 +84,7 @@ export default async function ProductDetail({ params }: { params: Promise<{ slug
             <Link className="btn" href={`/quote?product=${p.slug}`}>
               Get a quote <ArrowUpRight size={16} />
             </Link>
-            <Link className="link" href="/products">All solutions <ArrowRight size={14} /></Link>
+            <Link className="link" href="/products">All products <ArrowRight size={14} /></Link>
           </div>
         </div>
         <figure className="prod-hero__fig ruled ruled-mask">
@@ -96,14 +96,17 @@ export default async function ProductDetail({ params }: { params: Promise<{ slug
       {/* Range ------------------------------------------------- */}
       <Chapter no="01 / RANGE">
         <div className="two-col two-col--aside">
-          <SectionHead label="What is in the range" title={<>The published<br />catalogue.</>} />
+          <SectionHead label="What we make" title={<>Types, <br />made to order.</>} />
           <div>
             <ul className="spec-list">
               {p.variants.map((v) => <li key={v}>{v}</li>)}
             </ul>
-            <p className="meta" style={{ marginTop: 16 }}>
-              Names as published by the company. Sizes and finishes to suit the job.
-            </p>
+            {p.family === 'Rolling shutters' && (
+              <p className="meta" style={{ marginTop: 16 }}>
+                Every type comes in <Link href="/products#materials" style={{ textDecoration: 'underline' }}>five materials</Link> and{' '}
+                <Link href="/products#strips" style={{ textDecoration: 'underline' }}>four strip profiles</Link>.
+              </p>
+            )}
           </div>
         </div>
       </Chapter>
@@ -127,37 +130,12 @@ export default async function ProductDetail({ params }: { params: Promise<{ slug
         <p className="body-c" style={{ marginTop: 34 }}>{p.detail}</p>
       </Chapter>
 
-      {/* Technical --------------------------------------------- */}
-      <Chapter no="03 / TECHNICAL">
-        <div className="two-col two-col--aside">
-          <div>
-            <SectionHead label="Specification" title={<>What we will not<br />publish yet.</>} />
-            <p className="body-c">
-              A specification you can rely on is one the company has signed off.
-              The items opposite have not been supplied, so they are listed as
-              outstanding rather than filled in with something plausible. Ask for
-              each of them in writing with your quotation.
-            </p>
-            <Link className="link" href="/quote" style={{ marginTop: 20 }}>
-              Ask for a written specification <ArrowUpRight size={14} />
-            </Link>
-          </div>
-          <ul className="todo-list">
-            {p.unconfirmed.map((u) => (
-              <li key={u}><span>TODO</span>{u}</li>
-            ))}
-          </ul>
-        </div>
-      </Chapter>
-
       {/* Catalogue reference ----------------------------------- */}
       {p.refs?.length ? (
-        <Chapter no="04 / REFERENCE">
-          <SectionHead label="From the catalogue" title="Photographed, not rendered.">
+        <Chapter no="03 / PHOTOGRAPHS">
+          <SectionHead label="Photographs" title="Seen on site.">
             <p className="body-c">
-              Shown at the size the original file actually is. These are the
-              company&rsquo;s own catalogue photographs — they are not presented
-              as completed projects, and none has been enlarged.
+              Shutters of this kind, on site.
             </p>
           </SectionHead>
           <div className="ref-row">
@@ -172,7 +150,7 @@ export default async function ProductDetail({ params }: { params: Promise<{ slug
       ) : null}
 
       {/* FAQ --------------------------------------------------- */}
-      <Chapter no={p.refs?.length ? '05 / QUESTIONS' : '04 / QUESTIONS'}>
+      <Chapter no={p.refs?.length ? '04 / QUESTIONS' : '03 / QUESTIONS'}>
         <SectionHead label="Before you enquire" title="Common questions." />
         <div className="faq">
           {faqs.map(([q, a]) => (
@@ -185,7 +163,7 @@ export default async function ProductDetail({ params }: { params: Promise<{ slug
       </Chapter>
 
       {/* Next -------------------------------------------------- */}
-      <Chapter no={p.refs?.length ? '06 / ALSO' : '05 / ALSO'} tight>
+      <Chapter no={p.refs?.length ? '05 / ALSO' : '04 / ALSO'} tight>
         <SectionHead label="Elsewhere in the range" title="Also made here." />
         <div className="next-row">
           {others.map((o) => (

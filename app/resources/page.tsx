@@ -25,7 +25,7 @@ export default function Resources() {
       <Breadcrumbs items={[{ label: 'Notes' }]} />
       <PageHead
         label="Working notes"
-        title={<>What to work out<br />before you ask.</>}
+        title={<>What to work out <br />before you ask.</>}
         lede="Three short pieces on the decisions that come up first. Written to help you ask a better question, not to sell you a product."
       />
 

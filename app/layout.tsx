@@ -7,13 +7,21 @@ import { PageAnalytics } from '@/components/page-analytics';
 
 export const metadata: Metadata = {
   title: {
-    default: 'Ashoka Fabricators | Engineered entrances, Hyderabad since 1972',
+    default: 'Ashoka Fabricators | Engineered entrances, Hyderabad since the late 1960s',
     template: '%s | Ashoka Fabricators',
   },
   description:
-    'Rolling shutters, security gates, entrance automation and steel fabrication, made to measure in Hyderabad since 1972.',
+    'Rolling shutters, security gates, entrance automation and steel fabrication, made to measure in Hyderabad since the late 1960s — for Hyderabad and customers across India.',
   other: { 'codex-preview': 'development' },
-  icons: { icon: '/images/logo-mark.webp', shortcut: '/images/logo-mark.webp' },
+  // SVG first so the tab icon is sharp at any density; the raster stays as a
+  // fallback for clients that do not take an SVG favicon.
+  icons: {
+    icon: [
+      { url: '/images/logo-mark.svg', type: 'image/svg+xml' },
+      { url: '/images/logo-mark.webp', type: 'image/webp' },
+    ],
+    shortcut: '/images/logo-mark.svg',
+  },
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {

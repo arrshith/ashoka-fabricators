@@ -6,7 +6,7 @@ export async function POST(request:Request){
  if(!request.headers.get('content-type')?.startsWith('multipart/form-data'))return json({error:'Invalid enquiry format.'},415);
  if(Number(request.headers.get('content-length')||0)>MAX_BODY)return json({error:'The attachment total is too large. Use up to 3 files of 4 MB each.'},413);
  const {DB,BUCKET,RATE_LIMIT_SECRET,ENQUIRY_WEBHOOK_URL,ENQUIRY_WEBHOOK_TOKEN}=getBusinessEnv();
- if(!DB||!BUCKET||!RATE_LIMIT_SECRET)return json({error:'Online enquiries are temporarily unavailable. Your entries are still here. Please contact Ashoka through the IndiaMART link on the contact page.'},503);
+ if(!DB||!BUCKET||!RATE_LIMIT_SECRET)return json({error:'Online enquiries are temporarily unavailable. Your entries are still here. Please call or WhatsApp Ashoka on the number on the contact page.'},503);
  try{
   const ip=request.headers.get('cf-connecting-ip')||'local';const now=Date.now();const windowId=Math.floor(now/900000);const key=await crypto.subtle.importKey('raw',new TextEncoder().encode(RATE_LIMIT_SECRET),{name:'HMAC',hash:'SHA-256'},false,['sign']);const signed=await crypto.subtle.sign('HMAC',key,new TextEncoder().encode(`${windowId}:${ip}`));const digest=Array.from(new Uint8Array(signed),b=>b.toString(16).padStart(2,'0')).join('');
   await DB.prepare('DELETE FROM submission_limits WHERE expires_at < ?').bind(now).run();
