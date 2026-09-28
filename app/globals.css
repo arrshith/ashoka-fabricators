@@ -309,7 +309,7 @@ h2.display {
 .dwg .obj-f { fill: var(--paper-2); stroke: var(--ink); stroke-width: 1.25; }
 .dwg .thin { fill: none; stroke: var(--steel); stroke-width: 0.75; }
 /* A sheet seen end-on: heavier than an outline so the section reads as metal. */
-.dwg .sect { fill: none; stroke: var(--ink); stroke-width: 3; stroke-linejoin: round; stroke-linecap: round; }
+.dwg .sect { fill: none; stroke: var(--ink); stroke-width: 2.6; stroke-linejoin: round; stroke-linecap: round; }
 .dwg .hidden-edge { fill: none; stroke: var(--steel); stroke-width: 0.75; stroke-dasharray: 5 4; }
 .dwg .centre { fill: none; stroke: var(--steel); stroke-width: 0.6; stroke-dasharray: 14 4 3 4; }
 .dwg .dim { fill: none; stroke: var(--annot); stroke-width: 0.9; }
@@ -1076,3 +1076,24 @@ h2.display {
 .logo-grid { list-style: none; padding: 0; margin: 14px 0 0; display: grid; gap: 10px; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
 .logo-grid li { display: grid; place-items: center; height: 92px; background: #fff; border: 1px solid var(--rule); }
 .logo-grid img { max-width: 138px; height: auto; }
+
+/* --- 23. 3D shutter viewer ------------------------------------------ */
+.s3d { margin-bottom: clamp(28px, 3.5vw, 48px); border: 1px solid var(--rule); background: var(--paper-2); }
+.s3d__stage { position: relative; aspect-ratio: 16 / 8; min-height: 300px; cursor: crosshair; }
+@media (max-width: 720px) { .s3d__stage { aspect-ratio: 4 / 5; } }
+.s3d__stage canvas { position: absolute; inset: 0; width: 100% !important; height: 100% !important; display: block; }
+.s3d__wait { position: absolute; inset: 0; display: grid; place-items: center; color: var(--steel); }
+.s3d__bar {
+  display: flex; flex-wrap: wrap; gap: 12px; align-items: center; justify-content: space-between;
+  padding: 14px clamp(14px, 2vw, 22px); border-top: 1px solid var(--rule); background: var(--paper);
+}
+.s3d__picks { display: flex; flex-wrap: wrap; gap: 6px; }
+.s3d__picks button, .s3d__play {
+  font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+  min-height: 40px; padding: 0 14px; border: 1px solid var(--rule); background: #fff; color: var(--ink);
+  cursor: pointer; transition: background 0.2s var(--ease-mech), color 0.2s var(--ease-mech), border-color 0.2s var(--ease-mech);
+}
+.s3d__picks button:hover, .s3d__play:hover { border-color: var(--ink); }
+.s3d__picks button.is-on { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.s3d__play { display: inline-flex; align-items: center; gap: 8px; }
+.s3d button:focus-visible { outline: 2px solid var(--annot); outline-offset: 2px; }

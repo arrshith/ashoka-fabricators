@@ -299,7 +299,9 @@ export function StripProfile({ kind }: { kind: StripKey }) {
   return (
     <svg className="dwg" viewBox="0 0 400 170" role="img" aria-label={`Cross-section of a ${kind.replace(/-/g, ' ')} shutter strip`}>
       <line className="centre" x1="20" y1="104" x2="380" y2="104" {...ns} />
-      <path className="sect" d={s.d} {...ns} />
+      {/* Scales with the drawing (no non-scaling stroke) so its length can be
+          measured for the draw-on in components/motion.tsx. */}
+      <path className="sect" d={s.d} />
       <DimH x1={s.x1} x2={s.x2} y={150} label="W" drop={12} />
     </svg>
   );

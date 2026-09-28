@@ -3,7 +3,6 @@ import { ArrowUpRight, MessageCircle } from 'lucide-react';
 
 import './home.css';
 import { ShutterHero } from '@/components/shutter-hero';
-import { Reveal } from '@/components/home/reveal';
 import { ProductDetail } from '@/components/home/product-detail';
 import { ClientMarquee } from '@/components/client-marquee';
 import {
@@ -74,7 +73,6 @@ export default function Home() {
         areaServed,
         knowsAbout: products.map(flatName),
       }} />
-      <Reveal />
 
       <ShutterHero />
 

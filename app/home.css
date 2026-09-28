@@ -339,13 +339,8 @@ body:has(.v2) { background: var(--bone, #f1f0ec); }
 }
 
 /* --- 19. Motion -------------------------------------------------------- */
-/* Scroll reveals — hidden only once JS has armed them (see reveal.tsx). */
-.v2 .rise { transition: opacity 0.7s var(--mech), transform 0.7s var(--mech); }
-.v2-anim .v2 .rise:not(.in) { opacity: 0; transform: translate3d(0, 22px, 0); }
-
 @media (prefers-reduced-motion: reduce) {
   .v2 *, .v2 *::before, .v2 *::after { animation: none !important; transition: none !important; }
-  .v2-anim .v2 .rise:not(.in) { opacity: 1; transform: none; }
   .v2 .marquee { -webkit-mask-image: none; mask-image: none; padding-inline: var(--gutter); }
   .v2 .marquee__track { width: auto; flex-wrap: wrap; justify-content: center; }
   .v2 .marquee__track li[aria-hidden] { display: none; }

@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { ArrowUpRight } from 'lucide-react';
 import { Breadcrumbs, PageHead, Chapter, SectionHead, JsonLd } from '@/components/shared';
 import { Drawing, StripProfile } from '@/components/drawings';
+import { Shutter3D } from '@/components/shutter-3d';
 import { shutters, secondary, materials, strips, operation, flatName, type Product } from '@/lib/content';
 import { pageMeta, siteUrl } from '@/lib/seo';
 
@@ -67,6 +68,7 @@ export default function Products() {
             budget, the weather the shutter faces, and whether you need to see through it.
           </p>
         </SectionHead>
+        <Shutter3D />
         <div className="mats">
           {materials.map((m, i) => (
             <article className="mat" key={m.slug} id={m.slug}>
