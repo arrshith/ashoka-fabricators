@@ -42,7 +42,6 @@ export function SiteHeader() {
     <header className="hdr">
       <Link className="brand" href="/" aria-label="Ashoka Fabricators — home">
         <img src="/images/logo-mark.svg" width={108} height={37} alt="Ashoka" />
-        <span className="brand__txt" aria-hidden="true">Fabricators</span>
       </Link>
 
       <nav className="nav" aria-label="Main">

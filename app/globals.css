@@ -261,14 +261,8 @@ h2.display {
   color: var(--ink-inv);
 }
 
-.brand { display: flex; align-items: center; gap: 12px; margin-right: auto; }
-.brand img { width: 84px; height: 29px; object-fit: contain; }
-.brand__txt {
-  font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.2em;
-  text-transform: uppercase; color: var(--ink-inv-2);
-  padding-left: 12px; border-left: 1px solid var(--rule-inv);
-}
-@media (max-width: 480px) { .brand__txt { display: none; } }
+.brand { display: flex; align-items: center; margin-right: auto; }
+.brand img { width: 124px; height: 43px; object-fit: contain; }
 
 .nav { display: flex; align-items: center; gap: 4px; }
 .nav a {
@@ -943,6 +937,8 @@ h2.display {
   padding-bottom: clamp(38px, 5vw, 62px); border-bottom: 1px solid var(--rule-inv);
 }
 @media (min-width: 860px) { .ftr__top { grid-template-columns: 1fr auto; } }
+/* The homepage ends on its own WhatsApp photo ask; the footer CTA would repeat it. */
+body:has(.v2) .ftr__top { display: none; }
 
 .ftr__grid { display: grid; gap: 34px 26px; padding: clamp(36px, 4vw, 56px) 0; }
 @media (min-width: 700px) { .ftr__grid { grid-template-columns: repeat(2, 1fr); } }

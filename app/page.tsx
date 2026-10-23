@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { ArrowUpRight, MessageCircle } from 'lucide-react';
+import { ArrowUpRight } from 'lucide-react';
 
 import './home.css';
 import { ShutterHero } from '@/components/shutter-hero';
@@ -10,7 +10,7 @@ import {
   MeasureWidth, MeasureHeight, MeasureHeadroom, MeasureUsage,
 } from '@/components/home/figures';
 import { Drawing } from '@/components/drawings';
-import { JsonLd } from '@/components/shared';
+import { JsonLd, WhatsAppIcon } from '@/components/shared';
 import { products, shutters, flatName, type DrawingKey, type Photo } from '@/lib/content';
 import { company, clients, actions, areaServed } from '@/lib/company';
 import { pageMeta, siteUrl } from '@/lib/seo';
@@ -210,7 +210,7 @@ export default function Home() {
             </p>
             {photo.live ? (
               <a className="v-btn v-btn--onred" href={photo.href} target="_blank" rel="noreferrer">
-                <MessageCircle size={17} aria-hidden="true" /> Send photo on WhatsApp
+                <WhatsAppIcon size={17} /> Send photo on WhatsApp
               </a>
             ) : (
               <Link className="v-btn v-btn--onred" href="/quote">

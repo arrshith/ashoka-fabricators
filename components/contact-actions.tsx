@@ -11,7 +11,8 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { MessageCircle, Phone, PencilRuler } from 'lucide-react';
+import { Phone, PencilRuler } from 'lucide-react';
+import { WhatsAppIcon } from './shared';
 import { products, flatName } from '@/lib/content';
 import { company, waLink } from '@/lib/company';
 import { track } from '@/lib/analytics';
@@ -42,7 +43,7 @@ export function ContactActions() {
           onClick={() => track('whatsapp_click', { product: product?.slug || 'general' })}
           aria-label={`Message Ashoka Fabricators on WhatsApp about ${product ? flatName(product) : 'your project'}`}
         >
-          <MessageCircle size={19} aria-hidden="true" />
+          <WhatsAppIcon size={19} />
           <span>WhatsApp</span>
         </a>
       )}
@@ -58,7 +59,7 @@ export function ContactActions() {
             href={wa} target="_blank" rel="noreferrer"
             onClick={() => track('whatsapp_click', { product: product?.slug || 'general' })}
           >
-            <MessageCircle size={17} aria-hidden="true" /> WhatsApp
+            <WhatsAppIcon size={17} /> WhatsApp
           </a>
         )}
         <Link href="/quote" data-primary="1">

@@ -137,14 +137,15 @@ export function ShutterHero() {
             <i /> <span>Hyderabad · Since the late 1960s</span>
           </p>
           <h1 className="display d-xl">
-            Engineered <br />entrances. <br /><em>Built to measure.</em>
+            Engineered <br />rolling shutters. <br /><em>Made for your space.</em>
           </h1>
           {/* The kicker above already carries Hyderabad and the heritage; repeating
               them here was the whole of this sentence's second half. It now
               spends that space on what actually distinguishes the work. */}
           <p className="lede" style={{ color: 'var(--ink-inv-2)' }}>
             Commercial, residential and industrial rolling shutters, manual or
-            remote-controlled, made to the opening rather than to a stock size.
+            remote-controlled, we fabricate rolling shutters tailored to your
+            opening, operating needs and project requirements.
           </p>
           <div className="hero__cta">
             <Link className="btn" href="/quote">
